@@ -1,324 +1,733 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>girija.aisec</title>
-  <link rel="stylesheet" href="style1.css">
-<link rel="icon" type="image/png" href="lordshiva.png">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Fira+Code&display=swap" rel="stylesheet">
+  <title>Girija Geddavalasa | AI/ML × Open Source × CyberSec</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Fira+Code:wght@300;400;500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <style>
+    :root {
+      --bg:       #050a14;
+      --bg2:      #0a1628;
+      --accent:   #00d4ff;
+      --accent2:  #7c3aed;
+      --accent3:  #00ff88;
+      --text:     #cdd6f4;
+      --muted:    #7f849c;
+      --card:     #0d1b2e;
+      --border:   #1e3a5f;
+      --glow:     0 0 20px rgba(0,212,255,0.4);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    /* ── Canvas ── */
+    #bgCanvas {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0; pointer-events: none; opacity: 0.35;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 40px;
+      background: rgba(5,10,20,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .brand {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem; font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+    }
+    .nav-links a {
+      color: var(--text); text-decoration: none;
+      margin-left: 28px; font-size: 0.85rem; letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; position: relative; z-index: 1;
+      padding: 80px 20px 40px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.3);
+      border-radius: 50px; padding: 6px 18px;
+      font-family: 'Fira Code', monospace; font-size: 0.78rem;
+      color: var(--accent); margin-bottom: 28px;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+    .hero h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 900; line-height: 1.15;
+      background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 18px;
+    }
+    .hero-typed {
+      font-family: 'Fira Code', monospace;
+      font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+      color: var(--accent3);
+      min-height: 2em;
+      margin-bottom: 36px;
+    }
+    .hero-typed .cursor { color: var(--accent); }
+
+    .hero-desc {
+      max-width: 680px;
+      font-size: 0.95rem; color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    .btn-row { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+
+    .btn {
+      display: inline-block; padding: 11px 26px;
+      border-radius: 8px; font-size: 0.88rem; font-weight: 600;
+      text-decoration: none; cursor: pointer; border: none;
+      transition: all 0.25s;
+      font-family: 'Fira Code', monospace; letter-spacing: 0.03em;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      box-shadow: 0 0 18px rgba(0,212,255,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(0,212,255,0.55); }
+    .btn-outline {
+      background: transparent; color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .btn-outline:hover { background: rgba(0,212,255,0.1); transform: translateY(-2px); }
+
+    /* ── STAT STRIP ── */
+    .stats-strip {
+      position: relative; z-index: 1;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0;
+      background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 28px 0;
+    }
+    .stat {
+      text-align: center; padding: 0 40px;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.8rem; font-weight: 700; color: var(--accent);
+    }
+    .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative; z-index: 1;
+      padding: 80px 40px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .section-tag {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem; color: var(--accent3);
+      letter-spacing: 0.15em; margin-bottom: 10px;
+    }
+    h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700; color: #fff;
+      margin-bottom: 40px;
+      position: relative; display: inline-block;
+    }
+    h2::after {
+      content: ''; position: absolute; left: 0; bottom: -8px;
+      width: 60%; height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      border-radius: 2px;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
+    }
+    .about-text p { color: var(--text); font-size: 0.95rem; margin-bottom: 16px; }
+    .about-text strong { color: var(--accent); }
+
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .tag {
+      background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.25);
+      border-radius: 6px; padding: 5px 14px;
+      font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--accent);
+    }
+    .tag.purple { background: rgba(124,58,237,0.1); border-color: rgba(124,58,237,0.3); color: #a78bfa; }
+    .tag.green  { background: rgba(0,255,136,0.08); border-color: rgba(0,255,136,0.25); color: var(--accent3); }
+
+    /* ── SECURITY HIGHLIGHT ── */
+    .sec-box {
+      background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(0,212,255,0.06));
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 14px; padding: 28px 32px;
+      margin-top: 24px;
+    }
+    .sec-box h3 {
+      font-family: 'Orbitron', monospace; font-size: 1rem;
+      color: #a78bfa; margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+    }
+    .sec-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .sec-tool {
+      background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 5px; padding: 4px 12px;
+      font-family: 'Fira Code', monospace; font-size: 0.75rem; color: #c4b5fd;
+    }
+
+    /* ── EXPERIENCE TIMELINE ── */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 6px; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(180deg, var(--accent), var(--accent2), transparent);
+    }
+    .timeline-item {
+      position: relative; margin-bottom: 42px;
+    }
+    .timeline-dot {
+      position: absolute; left: -28px; top: 6px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--accent); box-shadow: var(--glow);
+    }
+    .timeline-header { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .timeline-title { font-weight: 600; font-size: 1rem; color: #fff; }
+    .timeline-date { font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--accent3); }
+    .timeline-company { color: var(--accent); font-size: 0.88rem; margin: 4px 0 10px; }
+    .timeline-stack { font-family: 'Fira Code', monospace; font-size: 0.76rem; color: var(--muted); margin-bottom: 12px; }
+    .timeline-bullets { list-style: none; }
+    .timeline-bullets li {
+      font-size: 0.9rem; color: var(--text); padding: 3px 0 3px 18px; position: relative;
+    }
+    .timeline-bullets li::before {
+      content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 0.75rem;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+    .proj-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 26px; transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .proj-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .proj-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--glow); }
+    .proj-card h3 { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .proj-stack { font-family: 'Fira Code', monospace; font-size: 0.73rem; color: var(--accent); margin-bottom: 12px; }
+    .proj-card p { font-size: 0.87rem; color: var(--muted); }
+    .proj-badge {
+      display: inline-block; margin-top: 14px;
+      background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.3);
+      border-radius: 4px; padding: 2px 10px;
+      font-size: 0.72rem; font-family: 'Fira Code', monospace; color: var(--accent3);
+    }
+
+    /* ── OPEN SOURCE MARQUEE ── */
+    .oss-section { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 50px 0; }
+    .oss-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+    .marquee-wrap { overflow: hidden; position: relative; }
+    .marquee-track { display: flex; gap: 18px; animation: marquee 28s linear infinite; width: max-content; }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .skill-pill {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(0,212,255,0.06); border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 18px; white-space: nowrap;
+      font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text);
+      transition: all 0.2s;
+    }
+    .skill-pill:hover { border-color: var(--accent); color: var(--accent); }
+    .skill-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .skill-dot.purple { background: var(--accent2); }
+    .skill-dot.green { background: var(--accent3); }
+
+    /* ── ACHIEVEMENTS ── */
+    .ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); gap: 18px; }
+    .ach-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 22px; text-align: center;
+      transition: all 0.3s;
+    }
+    .ach-card:hover { border-color: var(--accent3); box-shadow: 0 0 18px rgba(0,255,136,0.2); }
+    .ach-icon { font-size: 2rem; margin-bottom: 10px; }
+    .ach-title { font-weight: 600; font-size: 0.92rem; color: #fff; margin-bottom: 6px; }
+    .ach-sub { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    .contact-box {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 40px;
+      display: flex; flex-wrap: wrap; gap: 40px; align-items: center; justify-content: space-between;
+    }
+    .contact-info h3 { font-family: 'Orbitron', monospace; font-size: 1.2rem; color: #fff; margin-bottom: 10px; }
+    .contact-info p { color: var(--muted); font-size: 0.9rem; max-width: 420px; }
+    .contact-links { display: flex; flex-direction: column; gap: 10px; }
+    .contact-link {
+      display: flex; align-items: center; gap: 12px;
+      color: var(--text); text-decoration: none;
+      font-family: 'Fira Code', monospace; font-size: 0.85rem;
+      padding: 10px 18px;
+      background: rgba(0,212,255,0.05); border: 1px solid var(--border);
+      border-radius: 8px; transition: all 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    footer {
+      text-align: center; padding: 30px;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-family: 'Fira Code', monospace; font-size: 0.78rem;
+      position: relative; z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+      section { padding: 60px 20px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .stat { padding: 0 20px; }
+    }
+  </style>
 </head>
 <body>
-  <canvas id="moneyCanvas">
 
-</canvas>
-<header>
-  <nav class="navbar">
-    <div class="brand">PORTFOLIO</div>
-    <input type="checkbox" id="toggle" />
-    <label for="toggle" class="hamburger">&#9776;</label>
-    <div class="menu">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#research">Research</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </nav>
-</header>
+<canvas id="bgCanvas"></canvas>
 
-  <header class="hero">
-    <h1 class="glow">Girija Geddavalasa | AI × CyberSec</h1>
-    <p><span class="typed"></span></p>
-  </header>
-
-  <section class="about" id="about">
-    <h2>About Me</h2>
-    <p>Hi, I’m a pre-final year Computer Science student at VIT Chennai, specializing in AI/ML with a strong passion for cybersecurity—especially SOC analysis and VAPT.
-
-I’m fascinated by the fusion of AI and digital defense, and I love exploring how smart systems can enhance security. Java is my go-to for coding and DSA, and I enjoy working on ML models and threat detection tools.
-
-Outside tech, I’m into gardening, learning Vedic medicine from my grandfather, and keeping fit with a daily 15-minute workout.
-
-<H4>CONCLUSION : Brewed in Java, cooked in CyberSec—I'm here to merge both worlds for smarter, safer tech.</H4></p>
-
- <div class="btn-group">
-<a href="https://docs.google.com/document/d/1uwaC7sT95fazP4W9iFOiDsAYwhCplT2Y_xL317oKX-s/edit?usp=sharing" class="btn" target="_blank" download>Download Resume</a>
-
-    <a href="https://www.linkedin.com/in/girijageddavalasa/" class="btn" target="_blank">LinkedIn</a>
-    <a href="https://github.com/girijageddavalasa" class="btn" target="_blank">GitHub</a>
+<!-- NAV -->
+<nav>
+  <div class="brand">GG.DEV</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#security">Security</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#contact">Contact</a>
   </div>
-  </section>
+</nav>
 
- <section id="achievements">
-  <h2 class="glow">Achievements</h2>
-  <div class="achievements-marquee">
-    <div class="achievements-track">
-      <div class="achievement-card">Top 100 in Samsung PRISM Coding Test’25</div>
-      <div class="achievement-card">Runner-Up in Bloom Tank Ideathon</div>
-      <div class="achievement-card">6-time Intra-Level School Overall Champion (2015-2019, 2022)</div>
-      <div class="achievement-card">National Level Karate Champion</div>
-      <div class="achievement-card">Topper at 22nd National Level Vedic Maths Competition</div>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">
+    <span style="width:8px;height:8px;background:#00ff88;border-radius:50%;display:inline-block;"></span>
+    Available for Internship · Open to Collaborate
+  </div>
+  <h1>Girija Geddavalasa</h1>
+  <div class="hero-typed"><span class="typed-text"></span></div>
+  <p class="hero-desc">
+    Building intelligent systems at the intersection of <strong style="color:var(--accent)">AI/ML</strong>,
+    <strong style="color:var(--accent2)">Open Source</strong>, and
+    <strong style="color:var(--accent3)">CyberSecurity</strong>.
+    LLMs · Semantic Search · Agentic Workflows · RAG · Side-Channel Research.
+  </p>
+  <div class="btn-row">
+    <a href="https://docs.google.com/document/d/1uwaC7sT95fazP4W9iFOiDsAYwhCplT2Y_xL317oKX-s/edit" class="btn btn-primary" target="_blank">View Resume</a>
+    <a href="https://github.com/girijageddavalasa" class="btn btn-outline" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/girijageddavalasa/" class="btn btn-outline" target="_blank">LinkedIn</a>
+  </div>
+</div>
+
+<!-- STAT STRIP -->
+<div class="stats-strip">
+  <div class="stat"><div class="stat-num">9.16</div><div class="stat-label">CGPA / 10</div></div>
+  <div class="stat"><div class="stat-num">4+</div><div class="stat-label">Internships</div></div>
+  <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Hackathon Teams Beaten</div></div>
+  <div class="stat"><div class="stat-num">60%</div><div class="stat-label">Ops Reduction via Agents</div></div>
+  <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Compute Cut (Edge AI)</div></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-tag">// whoami</div>
+  <h2>About Me</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        Pre-final year CS student at <strong>VIT Chennai</strong>, specialising in AI & ML (CGPA 9.16).
+        I build production-grade NLP and retrieval systems — from <strong>semantic search</strong> and
+        <strong>fuzzy clustering</strong> to <strong>agentic multi-step pipelines</strong> using LangChain,
+        LangGraph, and LlamaIndex.
+      </p>
+      <p>
+        Alongside AI, I'm deeply passionate about <strong>cybersecurity</strong> — specifically SOC analysis,
+        VAPT, and side-channel research on Trusted Execution Environments (TEEs).
+        I contribute to open source and believe that safe, explainable AI and secure systems go hand-in-hand.
+      </p>
+      <p>
+        Outside tech: <strong>International Karate Champion 🥋</strong>, daily athlete, Vedic mathematics enthusiast,
+        and gardener learning from my grandfather's knowledge of Vedic medicine.
+      </p>
+      <div class="tag-cloud">
+        <span class="tag">LangChain</span>
+        <span class="tag">LangGraph</span>
+        <span class="tag">LlamaIndex</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">RAG</span>
+        <span class="tag purple">Open Source</span>
+        <span class="tag purple">n8n Automation</span>
+        <span class="tag green">CyberSec</span>
+        <span class="tag green">TEE Research</span>
+      </div>
+    </div>
+    <div>
+      <!-- Security highlight box -->
+      <div class="sec-box" id="security">
+        <h3>🛡️ Security Expertise</h3>
+        <p style="font-size:0.88rem;color:var(--text);margin-bottom:10px;">
+          Active in SOC analysis and VAPT. Conducted academic research on timing-based side-channel attacks
+          against TEEs — co-authored paper on attack surface characterisation under variable system load
+          (submission pending).
+        </p>
+        <p style="font-size:0.84rem;color:var(--muted);">
+          Believe AI systems must be built with security-first thinking — adversarial robustness, prompt injection
+          defence, and data privacy are concerns I bring into every AI project.
+        </p>
+        <div class="sec-tools">
+          <span class="sec-tool">Burp Suite</span>
+          <span class="sec-tool">Wireshark</span>
+          <span class="sec-tool">Nmap</span>
+          <span class="sec-tool">Metasploit</span>
+          <span class="sec-tool">Wazuh</span>
+          <span class="sec-tool">Splunk</span>
+          <span class="sec-tool">OWASP ZAP</span>
+          <span class="sec-tool">Nessus</span>
+          <span class="sec-tool">Volatility</span>
+          <span class="sec-tool">CyberChef</span>
+          <span class="sec-tool">TryHackMe</span>
+          <span class="sec-tool">HackTheBox</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-    <section class="projects"  id="experience">
+<!-- OPEN SOURCE SKILLS MARQUEE -->
+<div class="oss-section">
+  <div class="oss-inner">
+    <div class="section-tag" style="margin-bottom:16px;">// tech stack · open source contributions</div>
+    <div class="marquee-wrap">
+      <div class="marquee-track" id="marqueeTrack">
+        <!-- set 1 -->
+        <div class="skill-pill"><div class="skill-dot"></div>LangChain</div>
+        <div class="skill-pill"><div class="skill-dot"></div>LangGraph</div>
+        <div class="skill-pill"><div class="skill-dot"></div>LlamaIndex</div>
+        <div class="skill-pill"><div class="skill-dot"></div>FastAPI</div>
+        <div class="skill-pill"><div class="skill-dot"></div>ChromaDB</div>
+        <div class="skill-pill"><div class="skill-dot"></div>FAISS</div>
+        <div class="skill-pill"><div class="skill-dot purple"></div>PyTorch</div>
+        <div class="skill-pill"><div class="skill-dot purple"></div>HuggingFace</div>
+        <div class="skill-pill"><div class="skill-dot purple"></div>sentence-transformers</div>
+        <div class="skill-pill"><div class="skill-dot green"></div>n8n</div>
+        <div class="skill-pill"><div class="skill-dot green"></div>Docker</div>
+        <div class="skill-pill"><div class="skill-dot green"></div>AWS</div>
+        <div class="skill-pill"><div class="skill-dot"></div>Python</div>
+        <div class="skill-pill"><div class="skill-dot"></div>Gemini AI</div>
+        <div class="skill-pill"><div class="skill-dot purple"></div>TensorFlow</div>
+        <div class="skill-pill"><div class="skill-dot green"></div>Scikit-learn</div>
+        <!-- duplicate for seamless -->
+        <div class="skill-pill"><div class="skill-dot"></div>LangChain</div>
+        <div class="skill-pill"><div class="skill-dot"></div>LangGraph</div>
+        <div class="skill-pill"><div class="skill-dot"></div>LlamaIndex</div>
+        <div class="skill-pill"><div class="skill-dot"></div>FastAPI</div>
+        <div class="skill-pill"><div class="skill-dot"></div>ChromaDB</div>
+        <div class="skill-pill"><div class="skill-dot"></div>FAISS</div>
+        <div class="skill-pill"><div class="skill-dot purple"></div>PyTorch</div>
+        <div class="skill-pill"><div class="skill-dot purple"></div>HuggingFace</div>
+        <div class="skill-pill"><div class="skill-dot purple"></div>sentence-transformers</div>
+        <div class="skill-pill"><div class="skill-dot green"></div>n8n</div>
+        <div class="skill-pill"><div class="skill-dot green"></div>Docker</div>
+        <div class="skill-pill"><div class="skill-dot green"></div>AWS</div>
+        <div class="skill-pill"><div class="skill-dot"></div>Python</div>
+        <div class="skill-pill"><div class="skill-dot"></div>Gemini AI</div>
+        <div class="skill-pill"><div class="skill-dot purple"></div>TensorFlow</div>
+        <div class="skill-pill"><div class="skill-dot green"></div>Scikit-learn</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-tag">// work.log</div>
   <h2>Experience</h2>
-  <div class="project-grid">
-      <div class="card">
-      <h3>Upcoming AI Infosys Intern</h3>
-      <p>October 2025...</p>
-      <a href="https://neuralwage-predictor.streamlit.app/" target="_blank" class="btn" disbale>View Project</a>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <div class="timeline-title">Machine Learning Intern</div>
+        <div class="timeline-date">Sep 2025 – Present</div>
+      </div>
+      <div class="timeline-company">InterV · Chennai</div>
+      <div class="timeline-stack">LangChain · LangGraph · LlamaIndex · n8n · FastAPI · OpenAI APIs · RBAC · OAuth 2.0</div>
+      <ul class="timeline-bullets">
+        <li>Architected agentic automation pipelines using <strong>LangGraph stateful graphs</strong> for branching tool-call chains and memory-persistent agents across 15+ client deployments — cutting manual ops by 60%.</li>
+        <li>Built <strong>LlamaIndex RAG agents</strong> querying internal knowledge bases with semantic similarity ranking; LangChain orchestrated multi-tool, multi-step workflows end-to-end.</li>
+        <li>Engineered <strong>FastAPI microservices</strong> exposing agent capabilities as REST endpoints; secured with RBAC + OAuth 2.0 across React frontend.</li>
+        <li>Curated and validated training datasets for agent fine-tuning, establishing quality checks and exclusion criteria for production deployment.</li>
+      </ul>
     </div>
-      <div class="card">
-      <h3>Samsung PRISM 2025 Worklet</h3></h3>
-      <p>Multimodal AI agents for generating PowerPoints</p>
-        <p>September 2025 - Present</p>
-      <a href="https://neuralwage-predictor.streamlit.app/" target="_blank" class="btn" disable>View Project</a>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--accent2)"></div>
+      <div class="timeline-header">
+        <div class="timeline-title">R&D Intern — Audio ML</div>
+        <div class="timeline-date">Jul 2025 – Present</div>
+      </div>
+      <div class="timeline-company">Samsung PRISM · Chennai</div>
+      <div class="timeline-stack">PyTorch · Chromaprint · DTW · Cosine Similarity · Hungarian Algorithm · Librosa</div>
+      <ul class="timeline-bullets">
+        <li>Designed audio fingerprinting pipeline on 500K+ track datasets; boosted detection accuracy by 40% via DTW and cosine similarity segment matching.</li>
+        <li>Built bipartite graph + Hungarian algorithm prototype for optimal temporal segment alignment.</li>
+        <li>Orchestrated multimodal feature extraction (melodic, rhythmic, harmonic) using Librosa-based pipelines.</li>
+      </ul>
     </div>
-    <div class="card">
-      <h3>Ex-IBM AI ML Intern</h3>
-      <p>MLPClassifier-based salary prediction model with 86.35% accuracy</p>
-      <p>June 2025 - July 2025</p>
-      <a href="https://neuralwage-predictor.streamlit.app/" target="_blank" class="btn">View Project</a>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--accent3)"></div>
+      <div class="timeline-header">
+        <div class="timeline-title">Python Intern</div>
+        <div class="timeline-date">Oct – Dec 2025</div>
+      </div>
+      <div class="timeline-company">Infosys Springboard · Remote</div>
+      <div class="timeline-stack">MediaPipe · Kivy · PyCaw · Windows Audio APIs · Agile</div>
+      <ul class="timeline-bullets">
+        <li>Led Agile team through full SDLC; delivered depth-robust gesture control system with 95% volume stability improvement and sub-100 ms latency.</li>
+      </ul>
     </div>
-    <div class="card">
-      <h3>Research Intern at VIT-C</h3>
-      <p>Side-Channel Security in TEEs</p>
-      <p>May 2025 - July 2025</p>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:#a78bfa"></div>
+      <div class="timeline-header">
+        <div class="timeline-title">Research Intern — TEE Security</div>
+        <div class="timeline-date">May – Jul 2025</div>
+      </div>
+      <div class="timeline-company">VIT Chennai · Security Research Lab</div>
+      <div class="timeline-stack">Side-Channel Analysis · TEEs · Timing Attacks · Security Research</div>
+      <ul class="timeline-bullets">
+        <li>Investigated timing-based side-channel attacks on TEEs under variable system load; co-authored paper on attack surface characterisation (submission pending).</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-tag">// git log --oneline</div>
+  <h2>Projects</h2>
+  <div class="projects-grid">
+
+    <div class="proj-card" style="--accent:var(--accent)">
+      <h3>Semantic Search System — 20 Newsgroups</h3>
+      <div class="proj-stack">FastAPI · sentence-transformers · ChromaDB · Fuzzy Clustering · Python</div>
+      <p>Lightweight semantic search with fuzzy clustering, custom semantic cache (no Redis), and FastAPI endpoints. Cache uses cluster-indexed cosine similarity for O(1) lookup on similar queries.</p>
+      <span class="proj-badge">Trademarkia Assignment</span>
+    </div>
+
+    <div class="proj-card">
+      <h3>RAG Chemical R&D Recall System</h3>
+      <div class="proj-stack">LlamaIndex · RAG · Python · Statistical Analysis</div>
+      <p>LlamaIndex RAG over 1,000+ experiment records; reduced duplicate R&D trials by 35% with NL query interface and explainable parameter-comparison insights.</p>
+    </div>
+
+    <div class="proj-card">
+      <h3>GenAI Customer Support Chatbot</h3>
+      <div class="proj-stack">LLMs · RAG · Gemini AI · SQL · A/B Testing</div>
+      <p>RAG pipeline over 10K+ tickets with iterative A/B testing; 30% response accuracy improvement and 45% manual workload reduction via NL-to-SQL and similarity matching.</p>
+    </div>
+
+    <div class="proj-card">
+      <h3>RIR Estimation — Edge AI</h3>
+      <div class="proj-stack">PyTorch · 1D U-Net · Signal Processing</div>
+      <p>Optimised 1D U-Net: 98% compute reduction (16 GMACs → 0.33) for real-time mobile deployment. Runner-Up among 500+ teams at Samsung National Hackathon.</p>
+      <span class="proj-badge">🥈 Runner-Up Samsung Hackathon</span>
+    </div>
+
+    <div class="proj-card">
+      <h3>Multi-Lingual Audio Translation</h3>
+      <div class="proj-stack">AWS (S3 · Transcribe · Polly) · Flask · Boto3</div>
+      <p>6-service AWS pipeline for real-time audio-to-audio translation; 40% latency reduction via parallel async orchestration.</p>
+    </div>
+
+    <div class="proj-card">
+      <h3>AI Visual Text-to-Speech Assistant</h3>
+      <div class="proj-stack">Computer Vision · TTS · Python</div>
+      <p>"AI as Third Eye" — real-time scene recognition and narration system for accessibility, combining CV models with speech synthesis pipeline.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-tag">// achievements.json</div>
+  <h2>Achievements</h2>
+  <div class="ach-grid">
+    <div class="ach-card">
+      <div class="ach-icon">🥈</div>
+      <div class="ach-title">Samsung Hackathon Runner-Up</div>
+      <div class="ach-sub">Top 2 / 500+ teams — Edge AI RIR Estimation</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">💻</div>
+      <div class="ach-title">Top 100 — Samsung Coding Test</div>
+      <div class="ach-sub">Shortlisted from 10,000+ participants</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">🥋</div>
+      <div class="ach-title">International Karate Champion</div>
+      <div class="ach-sub">Goa & Coimbatore Internationals · National Champion, Delhi</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">🧮</div>
+      <div class="ach-title">Vedic Maths Topper</div>
+      <div class="ach-sub">22nd National Level Vedic Mathematics Competition</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">🏆</div>
+      <div class="ach-title">Bloom Tank Ideathon 2nd Place</div>
+      <div class="ach-sub">Innovation & entrepreneurship competition</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">🎖️</div>
+      <div class="ach-title">6× Intra School Champion</div>
+      <div class="ach-sub">Overall champion 2015–2019, 2022</div>
     </div>
   </div>
 </section>
 
-  <section class="projects">
-    <h2>Projects</h2>
-    <div class="project-grid">
-      <div class="card">GenAI-Powered Customer Support Chatbot</div>
-      <div class="card">Agentic AI for Financial Market Intelligence</div>
-      <div class="card">AI as Third eye - Real-Time Visual Text-to-Speech Assistant</div>
-      <div class="card">Inventory & Customer Journey Management System[PROTOTYPE]</div>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-tag">// connect --secure</div>
+  <h2>Contact</h2>
+  <div class="contact-box">
+    <div class="contact-info">
+      <h3>Let's Build Something</h3>
+      <p>Open to AI/ML internships, open-source collaboration, and security research partnerships.
+         I'm especially interested in LLM systems, agentic workflows, and AI-security intersections.</p>
     </div>
-  </section>
-
-
-<section class="section research" id="research">
-  <h2>Research Paper</h2>
-  <div class="box-item">
-    <h3>Trust Under Pressure: How System Load Opens the Door to Timing Attacks on TEEs</h3>
-    <p>Status: <strong>Yet to be published</strong></p>
-    <button class="btn" disabled>Upcoming</button>
-  </div>
-</section>
-
-
-
-
-<section class="skills infinite-scroll" id="skills">
-  <h2>Tech</h2>
-  <div class="skills-marquee">
-    <div class="marquee-track">
-      <div class="marquee-content">
-        <!-- List once -->
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java"><p>Java</p></div>
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"><p>Python</p></div>
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C"><p>C/C++</p></div>
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML"><p>HTML</p></div>
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS"><p>CSS</p></div>
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code"><p>VS Code</p></div>
-        <div class="skill-item"><img src="proteus.jpg" alt="Proteus"><p>Proteus</p></div>
-        <div class="skill-item"><img src="keil.jpg" alt="Keil µVision"><p>Keil µVision</p></div>
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"><p>Git</p></div>
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux"><p>Linux</p></div>
-        <div class="skill-item"><img src="django.png" alt="Django"><p>Django</p></div>
-      </div>
-      <!-- Duplicate for seamless scroll -->
-      <div class="marquee-content">
-        <!-- Repeat same items -->
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java"><p>Java</p></div>
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"><p>Python</p></div>
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C"><p>C/C++</p></div>
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML"><p>HTML</p></div>
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS"><p>CSS</p></div>
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code"><p>VS Code</p></div>
-        <div class="skill-item"><img src="proteus.jpg" alt="Proteus"><p>Proteus</p></div>
-        <div class="skill-item"><img src="keil.jpg" alt="Keil µVision"><p>Keil µVision</p></div>
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"><p>Git</p></div>
-        <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux"><p>Linux</p></div>
-        <div class="skill-item"><img src="django.png" alt="Django"><p>Django</p></div>
-
-      </div>
+    <div class="contact-links">
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=thatsgirijag@gmail.com" class="contact-link" target="_blank">
+        📧 thatsgirijag@gmail.com
+      </a>
+      <a href="https://linkedin.com/in/girijageddavalasa" class="contact-link" target="_blank">
+        💼 linkedin.com/in/girijageddavalasa
+      </a>
+      <a href="https://github.com/girijageddavalasa" class="contact-link" target="_blank">
+        🐙 github.com/girijageddavalasa
+      </a>
     </div>
   </div>
 </section>
 
+<footer>
+  <p>© 2025 Girija Geddavalasa · Built with ☕ Java spirit & 🐍 Python soul · Open Source · AI × CyberSec</p>
+</footer>
 
-<section class="skills infinite-scroll">
-  <h2>CyberSec</h2>
-  <div class="skills-marquee">
-    <div class="marquee-track">
-      <div class="marquee-content">
-        <div class="skill-item"><img src="tryhackme.jpg" alt="TryHackMe"><p>TryHackMe</p></div>
-        <div class="skill-item"><img src="hackthebox.jpeg" alt="Hack The Box"><p>Hack The Box</p></div>
-        <div class="skill-item"><img src="bsuite.png" alt="Burp Suite"><p>Burp Suite</p></div>
-        <div class="skill-item"><img src="nmap.jpeg" alt="Nmap"><p>Nmap</p></div>
-        <div class="skill-item"><img src="splunk.jpg" alt="Splunk"><p>Splunk</p></div>
-        <div class="skill-item"><img src="wazhu.jpg" alt="Wazuh"><p>Wazuh</p></div>
-        <div class="skill-item"><img src="meta.png" alt="Metasploit"><p>Metasploit</p></div>
-        <div class="skill-item"><img src="wireshark.jpg" alt="Wireshark"><p>Wireshark</p></div>
-        <div class="skill-item"><img src="volatility.png" alt="Volatility"><p>Volatility</p></div>
-        <div class="skill-item"><img src="openvas.png" alt="OpenVAS"><p>OpenVAS</p></div>
-        <div class="skill-item"><img src="nessus.png" alt="Nessus"><p>Nessus</p></div>
-        <div class="skill-item"><img src="owasp.png" alt="OWASP ZAP"><p>OWASP ZAP</p></div>
-        <div class="skill-item"><img src="windows.png" alt="Windows"><p>Windows</p></div>
-        <div class="skill-item"><img src="sysmon.jpg" alt="Sysmon"><p>Sysmon</p></div>
-        <div class="skill-item"><img src="cyberchef.png" alt="CyberChef"><p>CyberChef</p></div>
-      </div>
-      <div class="marquee-content">
-        <div class="skill-item"><img src="tryhackme.jpg" alt="TryHackMe"><p>TryHackMe</p></div>
-        <div class="skill-item"><img src="hackthebox.jpeg" alt="Hack The Box"><p>Hack The Box</p></div>
-        <div class="skill-item"><img src="bsuite.png" alt="Burp Suite"><p>Burp Suite</p></div>
-        <div class="skill-item"><img src="nmap.jpeg" alt="Nmap"><p>Nmap</p></div>
-        <div class="skill-item"><img src="splunk.jpg" alt="Splunk"><p>Splunk</p></div>
-        <div class="skill-item"><img src="wazhu.jpg" alt="Wazuh"><p>Wazuh</p></div>
-        <div class="skill-item"><img src="meta.png" alt="Metasploit"><p>Metasploit</p></div>
-        <div class="skill-item"><img src="wireshark.jpg" alt="Wireshark"><p>Wireshark</p></div>
-        <div class="skill-item"><img src="volatility.png" alt="Volatility"><p>Volatility</p></div>
-        <div class="skill-item"><img src="openvas.png" alt="OpenVAS"><p>OpenVAS</p></div>
-        <div class="skill-item"><img src="nessus.png" alt="Nessus"><p>Nessus</p></div>
-        <div class="skill-item"><img src="owasp.png" alt="OWASP ZAP"><p>OWASP ZAP</p></div>
-        <div class="skill-item"><img src="windows.png" alt="Windows"><p>Win Event Viewer</p></div>
-        <div class="skill-item"><img src="sysmon.jpg" alt="Sysmon"><p>Sysmon</p></div>
-        <div class="skill-item"><img src="cyberchef.png" alt="CyberChef"><p>CyberChef</p></div>
-      </div>
-    </div>
-  </div>
-</section>
+<script>
+// Typed.js
+new Typed('.typed-text', {
+  strings: [
+    'AI/ML Engineer',
+    'Open Source Developer',
+    'LangChain · LangGraph · LlamaIndex',
+    'Semantic Search Systems',
+    'Agentic Workflow Builder',
+    'CyberSec Researcher',
+    'International Karate Champion 🥋',
+    'Samsung PRISM Intern',
+  ],
+  typeSpeed: 55, backSpeed: 30, loop: true, backDelay: 1400
+});
 
+// Animated canvas — neural network nodes
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let W, H, nodes = [], animId;
 
-<section class="skills infinite-scroll">
-  <h2>AI</h2>
-  <div class="skills-marquee">
-    <div class="marquee-track">
-      <div class="marquee-content">
-        <div class="skill-item"><img src="chatgpt.png" alt="ChatGPT"><p>ChatGPT</p></div>
-        <div class="skill-item"><img src="claude.png" alt="Claude"><p>Claude</p></div>
-        <div class="skill-item"><img src="gemini.png" alt="Gemini"><p>Gemini</p></div>
-        <div class="skill-item"><img src="krey.png" alt="Krey"><p>Krey.ai</p></div>
-        <div class="skill-item"><img src="perplexity.png" alt="Perplexity"><p>Perplexity AI</p></div>
-        <div class="skill-item"><img src="emergent.png" alt="Emergent"><p>Emergent</p></div>
-        <div class="skill-item"><img src="gpt.png" alt="OpenAI GPTs"><p>OpenAI GPTs</p></div>
-        <div class="skill-item"><img src="llama.jpeg" alt="LLaMA"><p>Meta LLaMA</p></div>
-        <div class="skill-item"><img src="plam.png" alt="Google PaLM"><p>Google PaLM</p></div>
-        <div class="skill-item"><img src="huggingface.jpg" alt="HuggingFace"><p>Hugging Face</p></div>
-        <div class="skill-item"><img src="langchain.png" alt="LangChain"><p>LangChain</p></div>
-        <div class="skill-item"><img src="pytorch.png" alt="PyTorch"><p>PyTorch</p></div>
-        <div class="skill-item"><img src="tensorflow.png" alt="TensorFlow"><p>TensorFlow</p></div>
-      </div>
-      <div class="marquee-content">
-        <div class="skill-item"><img src="chatgpt.png" alt="ChatGPT"><p>ChatGPT</p></div>
-        <div class="skill-item"><img src="claude.png" alt="Claude"><p>Claude</p></div>
-        <div class="skill-item"><img src="gemini.png" alt="Gemini"><p>Gemini</p></div>
-        <div class="skill-item"><img src="krey.png" alt="Krey"><p>Krey.ai</p></div>
-        <div class="skill-item"><img src="perplexity.png" alt="Perplexity"><p>Perplexity AI</p></div>
-        <div class="skill-item"><img src="emergent.png" alt="Emergent"><p>Emergent</p></div>
-        <div class="skill-item"><img src="gpt.png" alt="OpenAI GPTs"><p>OpenAI GPTs</p></div>
-        <div class="skill-item"><img src="llama.jpeg" alt="LLaMA"><p>Meta LLaMA</p></div>
-        <div class="skill-item"><img src="plam.png" alt="Google PaLM"><p>Google PaLM</p></div>
-        <div class="skill-item"><img src="huggingface.jpg" alt="HuggingFace"><p>Hugging Face</p></div>
-        <div class="skill-item"><img src="langchain.png" alt="LangChain"><p>LangChain</p></div>
-        <div class="skill-item"><img src="pytorch.png" alt="PyTorch"><p>PyTorch</p></div>
-        <div class="skill-item"><img src="tensorflow.png" alt="TensorFlow"><p>TensorFlow</p></div>
-      </div>
-    </div>
-  </div>
-</section>
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
 
+class Node {
+  constructor() { this.reset(); }
+  reset() {
+    this.x  = Math.random() * W;
+    this.y  = Math.random() * H;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = (Math.random() - 0.5) * 0.4;
+    this.r  = Math.random() * 2 + 1;
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < 0 || this.x > W) this.vx *= -1;
+    if (this.y < 0 || this.y > H) this.vy *= -1;
+  }
+}
 
+for (let i = 0; i < 80; i++) nodes.push(new Node());
 
-
-  <section class="contact" id="contact">
-    <h2>Contact</h2>
-    <div class="terminal">
-      <p>&gt; connect Girija_G --secure</p>
-      <p>&gt; status: ACTIVE</p>
-      <a 
-  href="https://mail.google.com/mail/?view=cm&fs=1&to=thatsgirijag@gmail.com&su=REGARDING%3A" 
-  target="_blank" 
-  rel="noopener noreferrer" 
-  class="btn">
-  Decrypt Email
-</a>
-
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2025 Girija G. All rights reserved.</p>
-  </footer>
-
-  <script>
-    var typed = new Typed(".typed", {
-      strings: ["National Karate Champion","Ex-IBM AI Intern","Top 100 in Samsung PRISM'25","Athlete", "CyberSec","Infosys Springboard Intern"],
-      typeSpeed: 80,
-      backSpeed: 50,
-      loop: true
-    });
-
-    const canvas = document.getElementById("moneyCanvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const money = [];
-
-    class MoneyParticle {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.size = Math.random() * 15 + 10;
-        this.speedY = Math.random() * 2 + 1;
-        this.opacity = 1;
-        this.symbol = "$";
-      }
-      update() {
-        this.y -= this.speedY;
-        this.opacity -= 0.02;
-      }
-      draw() {
-        ctx.fillStyle = `rgba(0,255,0,${this.opacity})`;
-        ctx.font = `${this.size}px Orbitron`;
-        ctx.fillText(this.symbol, this.x, this.y);
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  nodes.forEach(n => n.update());
+  // connections
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 130) {
+        ctx.beginPath();
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(nodes[j].x, nodes[j].y);
+        ctx.strokeStyle = `rgba(0,212,255,${0.12*(1-dist/130)})`;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
       }
     }
-
-    function animateMoney() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < money.length; i++) {
-        money[i].update();
-        money[i].draw();
-        if (money[i].opacity <= 0) {
-          money.splice(i, 1);
-          i--;
-        }
-      }
-      requestAnimationFrame(animateMoney);
-    }
-
-    window.addEventListener("mousemove", (e) => {
-      for (let i = 0; i < 3; i++) {
-        money.push(new MoneyParticle(e.clientX, e.clientY));
-      }
-    });
-
-    animateMoney();
-  </script>
+  }
+  // dots
+  nodes.forEach(n => {
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(0,212,255,0.5)';
+    ctx.fill();
+  });
+  animId = requestAnimationFrame(draw);
+}
+draw();
+</script>
 </body>
-
 </html>
-
-
-
-
-
-
