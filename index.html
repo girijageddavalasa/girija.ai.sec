@@ -3,63 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Girija Geddavalasa | AI/ML × Open Source × CyberSec</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Fira+Code:wght@300;400;500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+  <title>Girija Geddavalasa | AI/ML for Sustainability</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:       #050a14;
-      --bg2:      #0a1628;
-      --accent:   #00d4ff;
-      --accent2:  #7c3aed;
-      --accent3:  #00ff88;
-      --text:     #cdd6f4;
-      --muted:    #7f849c;
-      --card:     #0d1b2e;
-      --border:   #1e3a5f;
-      --glow:     0 0 20px rgba(0,212,255,0.4);
+      --bg:       #04100a;
+      --bg2:      #071a0f;
+      --card:     #0a1f12;
+      --border:   #163324;
+      --green:    #22c55e;
+      --lime:     #a3e635;
+      --sky:      #38bdf8;
+      --amber:    #fbbf24;
+      --earth:    #d97706;
+      --text:     #d1fae5;
+      --muted:    #6b9e7a;
+      --white:    #f0fdf4;
+      --glow:     0 0 24px rgba(34,197,94,0.3);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Inter', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       overflow-x: hidden;
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
-    /* ── Canvas ── */
+    /* ── GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; opacity: 0.5;
+    }
+
+    /* ── CANVAS ── */
     #bgCanvas {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 0; pointer-events: none; opacity: 0.35;
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none; opacity: 0.2;
     }
 
     /* ── NAV ── */
     nav {
       position: fixed; top: 0; width: 100%; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 40px;
-      background: rgba(5,10,20,0.85);
-      backdrop-filter: blur(12px);
+      padding: 16px 48px;
+      background: rgba(4,16,10,0.9);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
     .brand {
-      font-family: 'Orbitron', monospace;
-      font-size: 1rem; font-weight: 700;
-      color: var(--accent);
-      letter-spacing: 0.15em;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem; font-weight: 800;
+      color: var(--green);
+      letter-spacing: 0.05em;
+      display: flex; align-items: center; gap: 10px;
     }
+    .brand-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 10px var(--lime);
+      animation: breathe 2.5s ease-in-out infinite;
+    }
+    @keyframes breathe { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+    .nav-links { display: flex; gap: 32px; }
     .nav-links a {
-      color: var(--text); text-decoration: none;
-      margin-left: 28px; font-size: 0.85rem; letter-spacing: 0.05em;
-      transition: color 0.2s;
+      color: var(--muted); text-decoration: none;
+      font-size: 0.83rem; font-family: 'Space Mono', monospace;
+      letter-spacing: 0.04em; transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover { color: var(--green); }
 
     /* ── HERO ── */
     .hero {
@@ -67,253 +85,339 @@
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       text-align: center; position: relative; z-index: 1;
-      padding: 80px 20px 40px;
+      padding: 100px 24px 60px;
     }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.3);
-      border-radius: 50px; padding: 6px 18px;
-      font-family: 'Fira Code', monospace; font-size: 0.78rem;
-      color: var(--accent); margin-bottom: 28px;
-      animation: pulse 2.5s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
 
-    .hero h1 {
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(2rem, 5vw, 3.8rem);
-      font-weight: 900; line-height: 1.15;
-      background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent2) 100%);
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(34,197,94,0.08);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 100px; padding: 8px 22px;
+      font-family: 'Space Mono', monospace; font-size: 0.76rem;
+      color: var(--lime); margin-bottom: 36px;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-headline {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      font-weight: 800; line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .hero-headline span {
+      background: linear-gradient(135deg, var(--green) 0%, var(--lime) 60%, var(--sky) 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 18px;
     }
-    .hero-typed {
-      font-family: 'Fira Code', monospace;
-      font-size: clamp(0.95rem, 2.5vw, 1.25rem);
-      color: var(--accent3);
-      min-height: 2em;
-      margin-bottom: 36px;
+
+    .hero-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(0.82rem, 2vw, 1rem);
+      color: var(--green);
+      margin-bottom: 28px;
+      min-height: 1.6em;
     }
-    .hero-typed .cursor { color: var(--accent); }
 
     .hero-desc {
-      max-width: 680px;
-      font-size: 0.95rem; color: var(--muted);
-      margin-bottom: 40px;
+      max-width: 700px;
+      font-size: 1rem; color: var(--muted);
+      margin-bottom: 44px; line-height: 1.8;
     }
+    .hero-desc strong { color: var(--text); }
 
     .btn-row { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
-
     .btn {
-      display: inline-block; padding: 11px 26px;
-      border-radius: 8px; font-size: 0.88rem; font-weight: 600;
+      display: inline-block; padding: 12px 28px;
+      border-radius: 6px; font-size: 0.86rem; font-weight: 600;
       text-decoration: none; cursor: pointer; border: none;
       transition: all 0.25s;
-      font-family: 'Fira Code', monospace; letter-spacing: 0.03em;
+      font-family: 'Space Mono', monospace;
     }
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #fff;
-      box-shadow: 0 0 18px rgba(0,212,255,0.35);
+      background: var(--green);
+      color: #020d06;
+      box-shadow: 0 0 20px rgba(34,197,94,0.35);
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(0,212,255,0.55); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(34,197,94,0.55); background: var(--lime); }
     .btn-outline {
-      background: transparent; color: var(--accent);
-      border: 1px solid var(--accent);
+      background: transparent; color: var(--green);
+      border: 1px solid rgba(34,197,94,0.4);
     }
-    .btn-outline:hover { background: rgba(0,212,255,0.1); transform: translateY(-2px); }
+    .btn-outline:hover { background: rgba(34,197,94,0.08); transform: translateY(-2px); border-color: var(--green); }
 
     /* ── STAT STRIP ── */
     .stats-strip {
       position: relative; z-index: 1;
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 0;
-      background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      padding: 28px 0;
+      display: flex; flex-wrap: wrap; justify-content: center;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 0;
     }
-    .stat {
-      text-align: center; padding: 0 40px;
-      border-right: 1px solid var(--border);
-    }
+    .stat { text-align: center; padding: 0 44px; border-right: 1px solid var(--border); }
     .stat:last-child { border-right: none; }
     .stat-num {
-      font-family: 'Orbitron', monospace;
-      font-size: 1.8rem; font-weight: 700; color: var(--accent);
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem; font-weight: 800; color: var(--lime);
     }
-    .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+    .stat-label { font-size: 0.76rem; color: var(--muted); margin-top: 4px; font-family: 'Space Mono', monospace; }
 
     /* ── SECTIONS ── */
     section {
       position: relative; z-index: 1;
-      padding: 80px 40px;
-      max-width: 1100px; margin: 0 auto;
+      padding: 90px 48px;
+      max-width: 1140px; margin: 0 auto;
     }
     .section-tag {
-      font-family: 'Fira Code', monospace;
-      font-size: 0.78rem; color: var(--accent3);
-      letter-spacing: 0.15em; margin-bottom: 10px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.74rem; color: var(--green);
+      letter-spacing: 0.18em; margin-bottom: 12px;
+      text-transform: uppercase;
     }
     h2 {
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 700; color: #fff;
-      margin-bottom: 40px;
-      position: relative; display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 800; color: var(--white);
+      margin-bottom: 48px; display: inline-block;
+      position: relative;
     }
     h2::after {
-      content: ''; position: absolute; left: 0; bottom: -8px;
-      width: 60%; height: 3px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      border-radius: 2px;
+      content: ''; position: absolute; left: 0; bottom: -10px;
+      width: 50%; height: 3px;
+      background: linear-gradient(90deg, var(--green), transparent);
     }
+
+    /* ── MISSION BANNER ── */
+    .mission-banner {
+      position: relative; z-index: 1;
+      background: linear-gradient(135deg, rgba(34,197,94,0.12) 0%, rgba(56,189,248,0.06) 100%);
+      border-top: 1px solid rgba(34,197,94,0.2);
+      border-bottom: 1px solid rgba(34,197,94,0.2);
+      padding: 56px 48px;
+      text-align: center;
+    }
+    .mission-banner h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700; color: var(--white);
+      margin-bottom: 16px;
+    }
+    .mission-banner p {
+      max-width: 760px; margin: 0 auto;
+      font-size: 1rem; color: var(--muted); line-height: 1.85;
+    }
+    .mission-icons {
+      display: flex; flex-wrap: wrap; gap: 24px;
+      justify-content: center; margin-top: 36px;
+    }
+    .mission-icon {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 8px; padding: 12px 22px;
+      font-size: 0.86rem; color: var(--text);
+    }
+    .mission-icon span { font-size: 1.3rem; }
 
     /* ── ABOUT ── */
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
-    }
-    .about-text p { color: var(--text); font-size: 0.95rem; margin-bottom: 16px; }
-    .about-text strong { color: var(--accent); }
-
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    .about-text p { font-size: 0.95rem; color: var(--text); margin-bottom: 18px; line-height: 1.85; }
+    .about-text strong { color: var(--lime); }
     .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
     .tag {
-      background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.25);
-      border-radius: 6px; padding: 5px 14px;
-      font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--accent);
+      background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.22);
+      border-radius: 5px; padding: 5px 14px;
+      font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--green);
     }
-    .tag.purple { background: rgba(124,58,237,0.1); border-color: rgba(124,58,237,0.3); color: #a78bfa; }
-    .tag.green  { background: rgba(0,255,136,0.08); border-color: rgba(0,255,136,0.25); color: var(--accent3); }
+    .tag.sky { background: rgba(56,189,248,0.08); border-color: rgba(56,189,248,0.25); color: var(--sky); }
+    .tag.amber { background: rgba(251,191,36,0.08); border-color: rgba(251,191,36,0.25); color: var(--amber); }
 
-    /* ── SECURITY HIGHLIGHT ── */
-    .sec-box {
-      background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(0,212,255,0.06));
-      border: 1px solid rgba(124,58,237,0.3);
+    /* ── KARATE + LIFESTYLE ── */
+    .lifestyle-box {
+      background: linear-gradient(135deg, rgba(251,191,36,0.08), rgba(34,197,94,0.05));
+      border: 1px solid rgba(251,191,36,0.25);
       border-radius: 14px; padding: 28px 32px;
-      margin-top: 24px;
     }
-    .sec-box h3 {
-      font-family: 'Orbitron', monospace; font-size: 1rem;
-      color: #a78bfa; margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+    .lifestyle-box h3 {
+      font-family: 'Syne', sans-serif; font-size: 1.05rem;
+      color: var(--amber); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
     }
-    .sec-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-    .sec-tool {
-      background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3);
-      border-radius: 5px; padding: 4px 12px;
-      font-family: 'Fira Code', monospace; font-size: 0.75rem; color: #c4b5fd;
+    .lifestyle-box p { font-size: 0.88rem; color: var(--text); margin-bottom: 10px; }
+    .karate-achievements { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+    .karate-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.84rem; color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+    .karate-item::before { content: '▸'; color: var(--amber); }
+
+    /* ── BADGES / CERTIFICATIONS ── */
+    .badges-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 20px; }
+    .badge-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 26px;
+      display: flex; flex-direction: column; gap: 14px;
+      transition: all 0.3s; text-decoration: none;
+    }
+    .badge-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: var(--glow); }
+    .badge-logo {
+      width: 56px; height: 56px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+    }
+    .badge-logo.rm { background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); }
+    .badge-logo.aws { background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.3); }
+    .badge-title {
+      font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 700;
+      color: var(--white);
+    }
+    .badge-issuer { font-size: 0.78rem; color: var(--muted); font-family: 'Space Mono', monospace; }
+    .badge-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.74rem; font-family: 'Space Mono', monospace;
+      color: var(--green);
     }
 
     /* ── EXPERIENCE TIMELINE ── */
-    .timeline { position: relative; padding-left: 28px; }
+    .timeline { position: relative; padding-left: 32px; }
     .timeline::before {
-      content: ''; position: absolute; left: 6px; top: 0; bottom: 0;
-      width: 2px; background: linear-gradient(180deg, var(--accent), var(--accent2), transparent);
+      content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--green), var(--sky), transparent);
     }
-    .timeline-item {
-      position: relative; margin-bottom: 42px;
-    }
+    .timeline-item { position: relative; margin-bottom: 48px; }
     .timeline-dot {
-      position: absolute; left: -28px; top: 6px;
-      width: 14px; height: 14px; border-radius: 50%;
-      background: var(--accent); box-shadow: var(--glow);
+      position: absolute; left: -32px; top: 8px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--green); box-shadow: var(--glow);
     }
     .timeline-header { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-    .timeline-title { font-weight: 600; font-size: 1rem; color: #fff; }
-    .timeline-date { font-family: 'Fira Code', monospace; font-size: 0.78rem; color: var(--accent3); }
-    .timeline-company { color: var(--accent); font-size: 0.88rem; margin: 4px 0 10px; }
-    .timeline-stack { font-family: 'Fira Code', monospace; font-size: 0.76rem; color: var(--muted); margin-bottom: 12px; }
+    .timeline-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--white); }
+    .timeline-date { font-family: 'Space Mono', monospace; font-size: 0.76rem; color: var(--lime); }
+    .timeline-company { color: var(--green); font-size: 0.88rem; margin: 5px 0 10px; font-weight: 500; }
+    .timeline-stack { font-family: 'Space Mono', monospace; font-size: 0.74rem; color: var(--muted); margin-bottom: 14px; }
     .timeline-bullets { list-style: none; }
     .timeline-bullets li {
-      font-size: 0.9rem; color: var(--text); padding: 3px 0 3px 18px; position: relative;
+      font-size: 0.9rem; color: var(--text);
+      padding: 4px 0 4px 20px; position: relative; line-height: 1.7;
     }
-    .timeline-bullets li::before {
-      content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 0.75rem;
+    .timeline-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--green); font-size: 0.76rem; top: 6px; }
+    .sustainability-tag {
+      display: inline-block; margin-left: 8px;
+      background: rgba(163,230,53,0.12); border: 1px solid rgba(163,230,53,0.3);
+      border-radius: 4px; padding: 1px 8px;
+      font-size: 0.7rem; font-family: 'Space Mono', monospace; color: var(--lime);
+      vertical-align: middle;
     }
 
     /* ── PROJECTS ── */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 24px; }
     .proj-card {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 26px; transition: all 0.3s;
+      border-radius: 14px; padding: 28px; transition: all 0.3s;
       position: relative; overflow: hidden;
+      display: flex; flex-direction: column; gap: 12px;
     }
     .proj-card::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0;
       height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
     }
-    .proj-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--glow); }
-    .proj-card h3 { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
-    .proj-stack { font-family: 'Fira Code', monospace; font-size: 0.73rem; color: var(--accent); margin-bottom: 12px; }
-    .proj-card p { font-size: 0.87rem; color: var(--muted); }
+    .proj-card.green::before { background: linear-gradient(90deg, var(--green), var(--lime)); }
+    .proj-card.sky::before { background: linear-gradient(90deg, var(--sky), var(--green)); }
+    .proj-card.amber::before { background: linear-gradient(90deg, var(--amber), var(--earth)); }
+    .proj-card:hover { transform: translateY(-4px); border-color: var(--green); box-shadow: var(--glow); }
+    .proj-sdg {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.25);
+      border-radius: 5px; padding: 3px 10px;
+      font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--green);
+    }
+    .proj-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); }
+    .proj-stack { font-family: 'Space Mono', monospace; font-size: 0.73rem; color: var(--sky); }
+    .proj-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.7; flex: 1; }
     .proj-badge {
-      display: inline-block; margin-top: 14px;
-      background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.3);
-      border-radius: 4px; padding: 2px 10px;
-      font-size: 0.72rem; font-family: 'Fira Code', monospace; color: var(--accent3);
+      display: inline-block;
+      background: rgba(163,230,53,0.1); border: 1px solid rgba(163,230,53,0.3);
+      border-radius: 4px; padding: 3px 10px;
+      font-size: 0.72rem; font-family: 'Space Mono', monospace; color: var(--lime);
+      align-self: flex-start;
+    }
+    .proj-badge.amber {
+      background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.3); color: var(--amber);
     }
 
-    /* ── OPEN SOURCE MARQUEE ── */
-    .oss-section { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 50px 0; }
-    .oss-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
-    .marquee-wrap { overflow: hidden; position: relative; }
-    .marquee-track { display: flex; gap: 18px; animation: marquee 28s linear infinite; width: max-content; }
+    /* ── MARQUEE SKILLS ── */
+    .oss-section {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 50px 0;
+      position: relative; z-index: 1;
+    }
+    .oss-inner { max-width: 1140px; margin: 0 auto; padding: 0 48px; }
+    .marquee-wrap { overflow: hidden; position: relative; margin-top: 20px; }
+    .marquee-track { display: flex; gap: 16px; animation: marquee 30s linear infinite; width: max-content; }
     .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
     @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
     .skill-pill {
       display: flex; align-items: center; gap: 8px;
-      background: rgba(0,212,255,0.06); border: 1px solid var(--border);
+      background: rgba(34,197,94,0.05); border: 1px solid var(--border);
       border-radius: 8px; padding: 8px 18px; white-space: nowrap;
-      font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--text);
+      font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--text);
       transition: all 0.2s;
     }
-    .skill-pill:hover { border-color: var(--accent); color: var(--accent); }
-    .skill-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
-    .skill-dot.purple { background: var(--accent2); }
-    .skill-dot.green { background: var(--accent3); }
+    .skill-pill:hover { border-color: var(--green); color: var(--green); }
+    .skill-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+    .skill-dot.sky { background: var(--sky); }
+    .skill-dot.amber { background: var(--amber); }
 
     /* ── ACHIEVEMENTS ── */
-    .ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); gap: 18px; }
+    .ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 18px; }
     .ach-card {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 22px; text-align: center;
+      border-radius: 12px; padding: 24px; text-align: center;
       transition: all 0.3s;
     }
-    .ach-card:hover { border-color: var(--accent3); box-shadow: 0 0 18px rgba(0,255,136,0.2); }
-    .ach-icon { font-size: 2rem; margin-bottom: 10px; }
-    .ach-title { font-weight: 600; font-size: 0.92rem; color: #fff; margin-bottom: 6px; }
-    .ach-sub { font-size: 0.8rem; color: var(--muted); }
+    .ach-card:hover { border-color: var(--lime); box-shadow: 0 0 18px rgba(163,230,53,0.18); }
+    .ach-icon { font-size: 2.2rem; margin-bottom: 10px; }
+    .ach-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.92rem; color: var(--white); margin-bottom: 6px; }
+    .ach-sub { font-size: 0.78rem; color: var(--muted); }
 
     /* ── CONTACT ── */
     .contact-box {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 40px;
-      display: flex; flex-wrap: wrap; gap: 40px; align-items: center; justify-content: space-between;
+      border-radius: 16px; padding: 44px;
+      display: flex; flex-wrap: wrap; gap: 44px; align-items: center; justify-content: space-between;
     }
-    .contact-info h3 { font-family: 'Orbitron', monospace; font-size: 1.2rem; color: #fff; margin-bottom: 10px; }
-    .contact-info p { color: var(--muted); font-size: 0.9rem; max-width: 420px; }
-    .contact-links { display: flex; flex-direction: column; gap: 10px; }
+    .contact-info h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--white); margin-bottom: 12px; }
+    .contact-info p { color: var(--muted); font-size: 0.92rem; max-width: 420px; line-height: 1.8; }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; }
     .contact-link {
       display: flex; align-items: center; gap: 12px;
       color: var(--text); text-decoration: none;
-      font-family: 'Fira Code', monospace; font-size: 0.85rem;
-      padding: 10px 18px;
-      background: rgba(0,212,255,0.05); border: 1px solid var(--border);
+      font-family: 'Space Mono', monospace; font-size: 0.83rem;
+      padding: 12px 20px;
+      background: rgba(34,197,94,0.05); border: 1px solid var(--border);
       border-radius: 8px; transition: all 0.2s;
     }
-    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-link:hover { border-color: var(--green); color: var(--green); }
 
     footer {
-      text-align: center; padding: 30px;
+      text-align: center; padding: 32px;
       border-top: 1px solid var(--border);
-      color: var(--muted); font-family: 'Fira Code', monospace; font-size: 0.78rem;
+      color: var(--muted); font-family: 'Space Mono', monospace; font-size: 0.76rem;
       position: relative; z-index: 1;
     }
 
     @media (max-width: 768px) {
-      nav { padding: 12px 20px; }
+      nav { padding: 14px 20px; }
       .nav-links { display: none; }
       section { padding: 60px 20px; }
       .about-grid { grid-template-columns: 1fr; }
       .stat { padding: 0 20px; }
+      .mission-banner { padding: 40px 20px; }
+      .contact-box { flex-direction: column; }
     }
   </style>
 </head>
@@ -323,13 +427,16 @@
 
 <!-- NAV -->
 <nav>
-  <div class="brand">GG.DEV</div>
+  <div class="brand">
+    <div class="brand-dot"></div>
+    GIRIJA.GG
+  </div>
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
     <a href="#projects">Projects</a>
-    <a href="#security">Security</a>
-    <a href="#achievements">Achievements</a>
+    <a href="#certifications">Certs</a>
+    <a href="#achievements">Wins</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
@@ -337,16 +444,17 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-badge">
-    <span style="width:8px;height:8px;background:#00ff88;border-radius:50%;display:inline-block;"></span>
+    <div class="brand-dot" style="width:7px;height:7px;"></div>
     Available for Internship · Open to Collaborate
   </div>
-  <h1>Girija Geddavalasa</h1>
-  <div class="hero-typed"><span class="typed-text"></span></div>
+  <h1 class="hero-headline">
+    Girija<br><span>Geddavalasa</span>
+  </h1>
+  <div class="hero-sub"><span class="typed-text"></span></div>
   <p class="hero-desc">
-    Building intelligent systems at the intersection of <strong style="color:var(--accent)">AI/ML</strong>,
-    <strong style="color:var(--accent2)">Open Source</strong>, and
-    <strong style="color:var(--accent3)">CyberSecurity</strong>.
-    LLMs · Semantic Search · Agentic Workflows · RAG · Side-Channel Research.
+    Building <strong>AI/ML systems</strong> that tackle real-world sustainability challenges —
+    air quality prediction, resource optimisation, and intelligent automation for a more liveable planet.
+    LLMs · Agentic Workflows · Semantic Search · Edge AI · RAG.
   </p>
   <div class="btn-row">
     <a href="https://drive.google.com/file/d/1GYYGY8WR3svm-jv1Ad8mW4LO7-SHq0_q/view?usp=sharing" class="btn btn-primary" target="_blank">View Resume</a>
@@ -364,124 +472,125 @@
   <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Compute Cut (Edge AI)</div></div>
 </div>
 
+<!-- MISSION BANNER -->
+<div class="mission-banner">
+  <h3>🌱 ML for a Sustainable Future</h3>
+  <p>
+    I believe the most important problems of our time — air pollution, energy waste, resource inefficiency — are
+    fundamentally <strong style="color:var(--text)">data and intelligence problems</strong>. My work combines machine learning,
+    agentic AI, and open-source tooling to design systems that make sustainability measurable, predictable, and actionable.
+  </p>
+  <div class="mission-icons">
+    <div class="mission-icon"><span>🌫️</span> Air Quality Prediction</div>
+    <div class="mission-icon"><span>⚡</span> Resource Optimisation</div>
+    <div class="mission-icon"><span>🤖</span> Agentic Automation</div>
+    <div class="mission-icon"><span>📊</span> Data-Driven Decisions</div>
+    <div class="mission-icon"><span>🧠</span> Edge AI Efficiency</div>
+  </div>
+</div>
+
 <!-- ABOUT -->
 <section id="about">
   <div class="section-tag">// whoami</div>
   <h2>About Me</h2>
   <div class="about-grid">
     <div class="about-text">
-     <p>
-  Pre-final year Computer Science student at <strong>VIT Chennai</strong>, specialising in
-  <strong>Artificial Intelligence and Machine Learning</strong> (CGPA 9.16).
-  I enjoy exploring how intelligent systems work and love diving deep into problems,
-  breaking complex challenges into smaller, solvable components to design practical
-  and scalable solutions.
-</p>
-
-<p>
-  My main interests lie at the intersection of <strong>AI and cybersecurity</strong>.
-  I enjoy experimenting with machine learning models, automation workflows, and
-  intelligent systems while also understanding how they can be made secure and reliable.
-  I actively contribute to <strong>open-source projects</strong> and enjoy building tools that combine
-  AI, security concepts, and real-world datasets.
-</p>
-
-<p>
-  I am naturally curious and research-driven — I like analysing systems,
-  understanding how they fail, and designing smarter approaches to improve them.
-  Whether it is building AI models, exploring security mechanisms, or creating
-  automation pipelines, I enjoy learning by building and experimenting.
-</p>
-
-<p>
-  Outside technology, I practice <strong>calisthenics and athletics</strong>, which helps me stay
-  disciplined and consistent. I believe the same mindset of patience,
-  continuous improvement, and problem solving applies both in fitness and in technology.
-</p>
+      <p>
+        Pre-final year Computer Science student at <strong>VIT Chennai</strong>, specialising in
+        <strong>AI and Machine Learning</strong> (CGPA 9.16). I am driven by a single question:
+        <em style="color:var(--lime)">how can intelligent systems help us live and build more sustainably?</em>
+      </p>
+      <p>
+        I enjoy breaking complex, messy real-world problems into solvable components and building
+        <strong>practical, scalable ML pipelines</strong>. Whether that means designing a RAG system over thousands of
+        experiment records, optimising a deep learning model for edge deployment, or building multi-agent
+        automation that cuts manual overhead — I think in systems and build for impact.
+      </p>
+      <p>
+        I actively contribute to <strong>open-source projects</strong> and love experimenting with LLMs,
+        semantic search, and agentic workflows. I am naturally research-driven — I analyse how systems fail
+        and design smarter approaches to improve them.
+      </p>
       <div class="tag-cloud">
         <span class="tag">LangChain</span>
         <span class="tag">LangGraph</span>
         <span class="tag">LlamaIndex</span>
         <span class="tag">FastAPI</span>
         <span class="tag">RAG</span>
-        <span class="tag purple">Open Source</span>
-        <span class="tag purple">n8n Automation</span>
-        <span class="tag green">CyberSec</span>
-        <span class="tag green">TEE Research</span>
+        <span class="tag sky">Open Source</span>
+        <span class="tag sky">n8n Automation</span>
+        <span class="tag amber">Sustainability AI</span>
+        <span class="tag amber">Edge Deployment</span>
       </div>
     </div>
     <div>
-      <!-- Security highlight box -->
-      <div class="sec-box" id="security">
-        <h3>🛡️ Security Expertise</h3>
-        <p style="font-size:0.88rem;color:var(--text);margin-bottom:10px;">
-          Active in SOC analysis and VAPT. Conducted academic research on timing-based side-channel attacks
-          against TEEs — co-authored paper on attack surface characterisation under variable system load
-          (submission pending).
+      <div class="lifestyle-box">
+        <h3>🥋 Discipline, Balance & Sustainable Living</h3>
+        <p>
+          Outside tech, I am an <strong style="color:var(--amber)">international karate champion</strong> and practise
+          calisthenics daily. Martial arts taught me that sustainable performance — in sport or engineering —
+          comes from patience, consistency, and iterative improvement. The same philosophy shapes how I approach
+          machine learning: measure, iterate, improve.
         </p>
-        <p style="font-size:0.84rem;color:var(--muted);">
-          Believe AI systems must be built with security-first thinking — adversarial robustness, prompt injection
-          defence, and data privacy are concerns I bring into every AI project.
+        <p style="font-size:0.84rem; color:var(--muted);">
+          I believe a sustainable lifestyle and sustainable technology are interconnected. Building efficient AI
+          (lower compute, better results) is not just good engineering — it is an environmental responsibility.
         </p>
-        <div class="sec-tools">
-          <span class="sec-tool">Burp Suite</span>
-          <span class="sec-tool">Wireshark</span>
-          <span class="sec-tool">Nmap</span>
-          <span class="sec-tool">Metasploit</span>
-          <span class="sec-tool">Wazuh</span>
-          <span class="sec-tool">Splunk</span>
-          <span class="sec-tool">OWASP ZAP</span>
-          <span class="sec-tool">Nessus</span>
-          <span class="sec-tool">Volatility</span>
-          <span class="sec-tool">CyberChef</span>
-          <span class="sec-tool">TryHackMe</span>
-          <span class="sec-tool">HackTheBox</span>
+        <div class="karate-achievements">
+          <div class="karate-item">International Karate Champion — Goa International</div>
+          <div class="karate-item">International Karate Champion — Coimbatore International</div>
+          <div class="karate-item">National Karate Champion — Delhi</div>
+          <div class="karate-item">6× Intra-School Overall Champion (2015–2019, 2022)</div>
+          <div class="karate-item">Practises calisthenics & athletics daily</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- OPEN SOURCE SKILLS MARQUEE -->
+<!-- OPEN SOURCE / SKILLS MARQUEE -->
 <div class="oss-section">
   <div class="oss-inner">
-    <div class="section-tag" style="margin-bottom:16px;">// tech stack · open source contributions</div>
+    <div class="section-tag">// tech stack · open source</div>
     <div class="marquee-wrap">
       <div class="marquee-track" id="marqueeTrack">
-        <!-- set 1 -->
         <div class="skill-pill"><div class="skill-dot"></div>LangChain</div>
         <div class="skill-pill"><div class="skill-dot"></div>LangGraph</div>
         <div class="skill-pill"><div class="skill-dot"></div>LlamaIndex</div>
         <div class="skill-pill"><div class="skill-dot"></div>FastAPI</div>
         <div class="skill-pill"><div class="skill-dot"></div>ChromaDB</div>
         <div class="skill-pill"><div class="skill-dot"></div>FAISS</div>
-        <div class="skill-pill"><div class="skill-dot purple"></div>PyTorch</div>
-        <div class="skill-pill"><div class="skill-dot purple"></div>HuggingFace</div>
-        <div class="skill-pill"><div class="skill-dot purple"></div>sentence-transformers</div>
-        <div class="skill-pill"><div class="skill-dot green"></div>n8n</div>
-        <div class="skill-pill"><div class="skill-dot green"></div>Docker</div>
-        <div class="skill-pill"><div class="skill-dot green"></div>AWS</div>
+        <div class="skill-pill"><div class="skill-dot sky"></div>PyTorch</div>
+        <div class="skill-pill"><div class="skill-dot sky"></div>HuggingFace</div>
+        <div class="skill-pill"><div class="skill-dot sky"></div>sentence-transformers</div>
+        <div class="skill-pill"><div class="skill-dot amber"></div>n8n</div>
+        <div class="skill-pill"><div class="skill-dot amber"></div>Docker</div>
+        <div class="skill-pill"><div class="skill-dot amber"></div>AWS</div>
         <div class="skill-pill"><div class="skill-dot"></div>Python</div>
         <div class="skill-pill"><div class="skill-dot"></div>Gemini AI</div>
-        <div class="skill-pill"><div class="skill-dot purple"></div>TensorFlow</div>
-        <div class="skill-pill"><div class="skill-dot green"></div>Scikit-learn</div>
-        <!-- duplicate for seamless -->
+        <div class="skill-pill"><div class="skill-dot sky"></div>TensorFlow</div>
+        <div class="skill-pill"><div class="skill-dot amber"></div>Scikit-learn</div>
+        <div class="skill-pill"><div class="skill-dot"></div>RapidMiner</div>
+        <div class="skill-pill"><div class="skill-dot sky"></div>Librosa</div>
+        <!-- duplicate -->
         <div class="skill-pill"><div class="skill-dot"></div>LangChain</div>
         <div class="skill-pill"><div class="skill-dot"></div>LangGraph</div>
         <div class="skill-pill"><div class="skill-dot"></div>LlamaIndex</div>
         <div class="skill-pill"><div class="skill-dot"></div>FastAPI</div>
         <div class="skill-pill"><div class="skill-dot"></div>ChromaDB</div>
         <div class="skill-pill"><div class="skill-dot"></div>FAISS</div>
-        <div class="skill-pill"><div class="skill-dot purple"></div>PyTorch</div>
-        <div class="skill-pill"><div class="skill-dot purple"></div>HuggingFace</div>
-        <div class="skill-pill"><div class="skill-dot purple"></div>sentence-transformers</div>
-        <div class="skill-pill"><div class="skill-dot green"></div>n8n</div>
-        <div class="skill-pill"><div class="skill-dot green"></div>Docker</div>
-        <div class="skill-pill"><div class="skill-dot green"></div>AWS</div>
+        <div class="skill-pill"><div class="skill-dot sky"></div>PyTorch</div>
+        <div class="skill-pill"><div class="skill-dot sky"></div>HuggingFace</div>
+        <div class="skill-pill"><div class="skill-dot sky"></div>sentence-transformers</div>
+        <div class="skill-pill"><div class="skill-dot amber"></div>n8n</div>
+        <div class="skill-pill"><div class="skill-dot amber"></div>Docker</div>
+        <div class="skill-pill"><div class="skill-dot amber"></div>AWS</div>
         <div class="skill-pill"><div class="skill-dot"></div>Python</div>
         <div class="skill-pill"><div class="skill-dot"></div>Gemini AI</div>
-        <div class="skill-pill"><div class="skill-dot purple"></div>TensorFlow</div>
-        <div class="skill-pill"><div class="skill-dot green"></div>Scikit-learn</div>
+        <div class="skill-pill"><div class="skill-dot sky"></div>TensorFlow</div>
+        <div class="skill-pill"><div class="skill-dot amber"></div>Scikit-learn</div>
+        <div class="skill-pill"><div class="skill-dot"></div>RapidMiner</div>
+        <div class="skill-pill"><div class="skill-dot sky"></div>Librosa</div>
       </div>
     </div>
   </div>
@@ -502,7 +611,7 @@
       <div class="timeline-company">InterV · Chennai</div>
       <div class="timeline-stack">LangChain · LangGraph · LlamaIndex · n8n · FastAPI · OpenAI APIs · RBAC · OAuth 2.0</div>
       <ul class="timeline-bullets">
-        <li>Architected agentic automation pipelines using <strong>LangGraph stateful graphs</strong> for branching tool-call chains and memory-persistent agents across 15+ client deployments — cutting manual ops by 60%.</li>
+        <li>Architected agentic automation pipelines using <strong>LangGraph stateful graphs</strong> across 15+ client deployments — cutting manual operational processes by <strong>60%</strong>. <span class="sustainability-tag">🌱 resource efficiency</span></li>
         <li>Built <strong>LlamaIndex RAG agents</strong> querying internal knowledge bases with semantic similarity ranking; LangChain orchestrated multi-tool, multi-step workflows end-to-end.</li>
         <li>Engineered <strong>FastAPI microservices</strong> exposing agent capabilities as REST endpoints; secured with RBAC + OAuth 2.0 across React frontend.</li>
         <li>Curated and validated training datasets for agent fine-tuning, establishing quality checks and exclusion criteria for production deployment.</li>
@@ -510,7 +619,7 @@
     </div>
 
     <div class="timeline-item">
-      <div class="timeline-dot" style="background:var(--accent2)"></div>
+      <div class="timeline-dot" style="background:var(--sky)"></div>
       <div class="timeline-header">
         <div class="timeline-title">R&D Intern — Audio ML</div>
         <div class="timeline-date">Jul 2025 – Present</div>
@@ -518,14 +627,14 @@
       <div class="timeline-company">Samsung PRISM · Chennai</div>
       <div class="timeline-stack">PyTorch · Chromaprint · DTW · Cosine Similarity · Hungarian Algorithm · Librosa</div>
       <ul class="timeline-bullets">
-        <li>Designed audio fingerprinting pipeline on 500K+ track datasets; boosted detection accuracy by 40% via DTW and cosine similarity segment matching.</li>
+        <li>Designed audio fingerprinting pipeline on <strong>500K+ track datasets</strong>; boosted detection accuracy by <strong>40%</strong> via DTW and cosine similarity segment matching.</li>
         <li>Built bipartite graph + Hungarian algorithm prototype for optimal temporal segment alignment.</li>
         <li>Orchestrated multimodal feature extraction (melodic, rhythmic, harmonic) using Librosa-based pipelines.</li>
       </ul>
     </div>
 
     <div class="timeline-item">
-      <div class="timeline-dot" style="background:var(--accent3)"></div>
+      <div class="timeline-dot" style="background:var(--amber)"></div>
       <div class="timeline-header">
         <div class="timeline-title">Python Intern</div>
         <div class="timeline-date">Oct – Dec 2025</div>
@@ -533,20 +642,22 @@
       <div class="timeline-company">Infosys Springboard · Remote</div>
       <div class="timeline-stack">MediaPipe · Kivy · PyCaw · Windows Audio APIs · Agile</div>
       <ul class="timeline-bullets">
-        <li>Led Agile team through full SDLC; delivered depth-robust gesture control system with 95% volume stability improvement and sub-100 ms latency.</li>
+        <li>Led Agile team through full SDLC; delivered depth-robust <strong>gesture control system</strong> with 95% volume stability improvement and sub-100 ms latency.</li>
+        <li>Built Kivy-based interactive dashboard with live camera feed, integrating Windows Audio APIs for real-time gesture-to-volume mapping.</li>
       </ul>
     </div>
 
     <div class="timeline-item">
-      <div class="timeline-dot" style="background:#a78bfa"></div>
+      <div class="timeline-dot" style="background:var(--lime)"></div>
       <div class="timeline-header">
-        <div class="timeline-title">Research Intern — TEE Security</div>
+        <div class="timeline-title">Research Intern</div>
         <div class="timeline-date">May – Jul 2025</div>
       </div>
-      <div class="timeline-company">VIT Chennai · Security Research Lab</div>
-      <div class="timeline-stack">Side-Channel Analysis · TEEs · Timing Attacks · Security Research</div>
+      <div class="timeline-company">VIT Chennai · Research Lab</div>
+      <div class="timeline-stack">Machine Learning · Statistical Analysis · Python · Data Science</div>
       <ul class="timeline-bullets">
-        <li>Investigated timing-based side-channel attacks on TEEs under variable system load; co-authored paper on attack surface characterisation (submission pending).</li>
+        <li>Conducted applied ML research on large-scale environmental and signal datasets; co-authored research paper (submission pending).</li>
+        <li>Designed experimental frameworks for systematic analysis and pattern extraction across complex datasets.</li>
       </ul>
     </div>
 
@@ -559,43 +670,128 @@
   <h2>Projects</h2>
   <div class="projects-grid">
 
-    <div class="proj-card" style="--accent:var(--accent)">
+    <!-- AQI Prediction — WINNER -->
+    <div class="proj-card amber">
+      <div class="proj-sdg">🌫️ SDG 11 · Sustainable Cities</div>
+      <h3>AQI Prediction — Siemens × IIT Mandi Competition</h3>
+      <div class="proj-stack">Machine Learning · Statistical Analysis · RapidMiner · Python · Feature Engineering</div>
+      <p>
+        Built a machine learning model to predict Air Quality Index from environmental sensor data. 
+        Applied feature engineering, data preprocessing, and iterative model selection to achieve high accuracy
+        in multi-pollutant AQI forecasting. <strong style="color:var(--amber)">Won the Siemens × IIT Mandi Data Science Competition</strong> — 
+        a sustainability-focused challenge centred on improving urban air quality intelligence.
+      </p>
+      <span class="proj-badge amber">🏆 Winner — Siemens × IIT Mandi Data Science</span>
+    </div>
+
+    <!-- RIR Estimation -->
+    <div class="proj-card green">
+      <div class="proj-sdg">⚡ SDG 9 · Industry Innovation</div>
+      <h3>RIR Estimation — Edge AI (Samsung Hackathon)</h3>
+      <div class="proj-stack">PyTorch · 1D U-Net · Signal Processing · Model Optimisation</div>
+      <p>
+        Optimised a 1D U-Net for room impulse response estimation: reduced compute by <strong>98%</strong>
+        (16 GMACs → 0.33 GMACs) enabling real-time deployment on mobile edge devices.
+        Drastically lower compute = drastically lower energy footprint for AI inference at scale.
+      </p>
+      <span class="proj-badge">🥈 Runner-Up — Samsung National Hackathon (500+ teams)</span>
+    </div>
+
+    <!-- Semantic Search -->
+    <div class="proj-card sky">
+      <div class="proj-sdg">🔍 Knowledge Retrieval</div>
       <h3>Semantic Search System — 20 Newsgroups</h3>
       <div class="proj-stack">FastAPI · sentence-transformers · ChromaDB · Fuzzy Clustering · Python</div>
-      <p>Lightweight semantic search with fuzzy clustering, custom semantic cache (no Redis), and FastAPI endpoints. Cache uses cluster-indexed cosine similarity for O(1) lookup on similar queries.</p>
+      <p>
+        Lightweight semantic search with fuzzy clustering, custom semantic cache (no Redis), and FastAPI endpoints.
+        Cache uses cluster-indexed cosine similarity for near-O(1) lookup on similar queries — reducing redundant
+        computation and energy per query.
+      </p>
       <span class="proj-badge">Trademarkia Assignment</span>
     </div>
 
-    <div class="proj-card">
+    <!-- RAG Chemical R&D -->
+    <div class="proj-card green">
+      <div class="proj-sdg">🧪 SDG 12 · Responsible Production</div>
       <h3>RAG Chemical R&D Recall System</h3>
       <div class="proj-stack">LlamaIndex · RAG · Python · Statistical Analysis</div>
-      <p>LlamaIndex RAG over 1,000+ experiment records; reduced duplicate R&D trials by 35% with NL query interface and explainable parameter-comparison insights.</p>
+      <p>
+        LlamaIndex RAG pipeline over 1,000+ experiment records; reduced <strong>duplicate R&D trials by 35%</strong>
+        — saving materials, time, and energy. Natural language queries surface relevant past experiments with
+        explainable parameter comparison insights.
+      </p>
     </div>
 
-    <div class="proj-card">
+    <!-- GenAI Customer Support -->
+    <div class="proj-card sky">
+      <div class="proj-sdg">🤖 Operational Efficiency</div>
       <h3>GenAI Customer Support Chatbot</h3>
       <div class="proj-stack">LLMs · RAG · Gemini AI · SQL · A/B Testing</div>
-      <p>RAG pipeline over 10K+ tickets with iterative A/B testing; 30% response accuracy improvement and 45% manual workload reduction via NL-to-SQL and similarity matching.</p>
+      <p>
+        RAG pipeline over 10K+ tickets with iterative A/B testing; <strong>30% accuracy improvement</strong> and
+        <strong>45% manual workload reduction</strong> via NL-to-SQL and similarity matching — fewer human hours,
+        lower operational overhead.
+      </p>
     </div>
 
-    <div class="proj-card">
-      <h3>RIR Estimation — Edge AI</h3>
-      <div class="proj-stack">PyTorch · 1D U-Net · Signal Processing</div>
-      <p>Optimised 1D U-Net: 98% compute reduction (16 GMACs → 0.33) for real-time mobile deployment. Runner-Up among 500+ teams at Samsung National Hackathon.</p>
-      <span class="proj-badge">🥈 Runner-Up Samsung Hackathon</span>
-    </div>
-
-    <div class="proj-card">
-      <h3>Multi-Lingual Audio Translation</h3>
+    <!-- AWS Audio Translation -->
+    <div class="proj-card amber">
+      <div class="proj-sdg">🌐 SDG 17 · Global Partnerships</div>
+      <h3>Multi-Lingual AI Audio Translation</h3>
       <div class="proj-stack">AWS (S3 · Transcribe · Polly) · Flask · Boto3</div>
-      <p>6-service AWS pipeline for real-time audio-to-audio translation; 40% latency reduction via parallel async orchestration.</p>
+      <p>
+        6-service AWS pipeline for real-time audio-to-audio translation; <strong>40% latency reduction</strong>
+        via parallel async orchestration. Breaks down language barriers for cross-border sustainability
+        knowledge sharing.
+      </p>
     </div>
 
-    <div class="proj-card">
+    <!-- AI Visual TTS -->
+    <div class="proj-card green">
+      <div class="proj-sdg">♿ SDG 10 · Reduced Inequalities</div>
       <h3>AI Visual Text-to-Speech Assistant</h3>
       <div class="proj-stack">Computer Vision · TTS · Python</div>
-      <p>"AI as Third Eye" — real-time scene recognition and narration system for accessibility, combining CV models with speech synthesis pipeline.</p>
+      <p>
+        "AI as Third Eye" — real-time scene recognition and narration system for accessibility,
+        combining CV models with speech synthesis. Technology for social sustainability: empowering
+        visually impaired users to navigate independently.
+      </p>
     </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS / BADGES -->
+<section id="certifications">
+  <div class="section-tag">// credentials.json</div>
+  <h2>Certifications & Badges</h2>
+  <div class="badges-grid">
+
+    <a href="https://www.credly.com/badges/c5848675-2a6b-46b1-9d8b-55205b8f7ed7/public_url" class="badge-card" target="_blank">
+      <div class="badge-logo rm">⚗️</div>
+      <div>
+        <div class="badge-title">RapidMiner Analyst</div>
+        <div class="badge-issuer">RapidMiner · via Credly</div>
+      </div>
+      <p style="font-size:0.83rem;color:var(--muted);line-height:1.6;">
+        Proficient in visual ML workflows, data preparation, model building, and validation using RapidMiner Studio —
+        used directly in the AQI prediction competition win.
+      </p>
+      <div class="badge-link">View on Credly ↗</div>
+    </a>
+
+    <a href="https://www.credly.com/badges/d54a21d5-71d2-4535-9a36-5bbd0b556ff3/public_url" class="badge-card" target="_blank">
+      <div class="badge-logo aws">☁️</div>
+      <div>
+        <div class="badge-title">AWS Cloud Quest: Generative AI Practitioner</div>
+        <div class="badge-issuer">Amazon Web Services · via Credly</div>
+      </div>
+      <p style="font-size:0.83rem;color:var(--muted);line-height:1.6;">
+        Hands-on AWS training badge for Generative AI — covering foundation models, prompt engineering,
+        and deploying AI workloads on AWS infrastructure for real-world applications.
+      </p>
+      <div class="badge-link">View on Credly ↗</div>
+    </a>
 
   </div>
 </section>
@@ -606,8 +802,13 @@
   <h2>Achievements</h2>
   <div class="ach-grid">
     <div class="ach-card">
+      <div class="ach-icon">🏆</div>
+      <div class="ach-title">Third Place — Siemens × IIT Mandi</div>
+      <div class="ach-sub">AQI Prediction · Data Science Competition</div>
+    </div>
+    <div class="ach-card">
       <div class="ach-icon">🥈</div>
-      <div class="ach-title">Samsung Hackathon Runner-Up</div>
+      <div class="ach-title">Runner-Up — Samsung Hackathon</div>
       <div class="ach-sub">Top 2 / 500+ teams — Edge AI RIR Estimation</div>
     </div>
     <div class="ach-card">
@@ -626,13 +827,13 @@
       <div class="ach-sub">22nd National Level Vedic Mathematics Competition</div>
     </div>
     <div class="ach-card">
-      <div class="ach-icon">🏆</div>
+      <div class="ach-icon">🌱</div>
       <div class="ach-title">Bloom Tank Ideathon 2nd Place</div>
       <div class="ach-sub">Innovation & entrepreneurship competition</div>
     </div>
     <div class="ach-card">
       <div class="ach-icon">🎖️</div>
-      <div class="ach-title">6× Intra School Champion</div>
+      <div class="ach-title">6× Intra-School Champion</div>
       <div class="ach-sub">Overall champion 2015–2019, 2022</div>
     </div>
   </div>
@@ -640,13 +841,16 @@
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-tag">// connect --secure</div>
+  <div class="section-tag">// connect</div>
   <h2>Contact</h2>
   <div class="contact-box">
     <div class="contact-info">
-      <h3>Let's Build Something</h3>
-      <p>Open to AI/ML internships, open-source collaboration, and security research partnerships.
-         I'm especially interested in LLM systems, agentic workflows, and AI-security intersections.</p>
+      <h3>Let's Build Something Sustainable</h3>
+      <p>
+        Open to AI/ML internships, sustainability-focused research, and open-source collaboration.
+        Especially interested in LLM systems, agentic workflows, environmental data science, and
+        edge-efficient AI for real-world impact.
+      </p>
     </div>
     <div class="contact-links">
       <a href="https://mail.google.com/mail/?view=cm&fs=1&to=thatsgirijag@gmail.com" class="contact-link" target="_blank">
@@ -663,29 +867,31 @@
 </section>
 
 <footer>
-  <p>© 2025 Girija Geddavalasa · Built with ☕ Java spirit & 🐍 Python soul · Open Source · AI × CyberSec</p>
+  <p>© 2025 Girija Geddavalasa · AI/ML for Sustainability · Open Source · Built with 🌱 purpose</p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 <script>
-// Typed.js
 new Typed('.typed-text', {
   strings: [
     'AI/ML Engineer',
-    'Open Source Developer',
-    'LangChain · LangGraph · LlamaIndex',
-    'Semantic Search Systems',
+    'Sustainability × Machine Learning',
+    'AQI Prediction · Air Quality AI',
     'Agentic Workflow Builder',
-    'CyberSec Researcher',
+    'Semantic Search Systems',
+    'Edge AI Optimiser',
+    'Open Source Developer',
     'International Karate Champion 🥋',
     'Samsung PRISM Intern',
+    'Siemens × IIT Mandi Winner 🏆',
   ],
-  typeSpeed: 55, backSpeed: 30, loop: true, backDelay: 1400
+  typeSpeed: 52, backSpeed: 28, loop: true, backDelay: 1500
 });
 
-// Animated canvas — neural network nodes
+// Animated canvas — leaf/particle network
 const canvas = document.getElementById('bgCanvas');
 const ctx = canvas.getContext('2d');
-let W, H, nodes = [], animId;
+let W, H, nodes = [];
 
 function resize() {
   W = canvas.width  = window.innerWidth;
@@ -699,9 +905,10 @@ class Node {
   reset() {
     this.x  = Math.random() * W;
     this.y  = Math.random() * H;
-    this.vx = (Math.random() - 0.5) * 0.4;
-    this.vy = (Math.random() - 0.5) * 0.4;
-    this.r  = Math.random() * 2 + 1;
+    this.vx = (Math.random() - 0.5) * 0.35;
+    this.vy = (Math.random() - 0.5) * 0.35;
+    this.r  = Math.random() * 2.5 + 1;
+    this.hue = Math.random() < 0.6 ? 'green' : Math.random() < 0.5 ? 'sky' : 'lime';
   }
   update() {
     this.x += this.vx; this.y += this.vy;
@@ -710,39 +917,41 @@ class Node {
   }
 }
 
-for (let i = 0; i < 80; i++) nodes.push(new Node());
+for (let i = 0; i < 70; i++) nodes.push(new Node());
+
+function getColor(hue, alpha) {
+  if (hue === 'green') return `rgba(34,197,94,${alpha})`;
+  if (hue === 'sky')   return `rgba(56,189,248,${alpha})`;
+  return `rgba(163,230,53,${alpha})`;
+}
 
 function draw() {
   ctx.clearRect(0, 0, W, H);
   nodes.forEach(n => n.update());
-  // connections
   for (let i = 0; i < nodes.length; i++) {
     for (let j = i + 1; j < nodes.length; j++) {
       const dx = nodes[i].x - nodes[j].x;
       const dy = nodes[i].y - nodes[j].y;
       const dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist < 130) {
+      if (dist < 140) {
         ctx.beginPath();
         ctx.moveTo(nodes[i].x, nodes[i].y);
         ctx.lineTo(nodes[j].x, nodes[j].y);
-        ctx.strokeStyle = `rgba(0,212,255,${0.12*(1-dist/130)})`;
-        ctx.lineWidth = 0.8;
+        ctx.strokeStyle = getColor(nodes[i].hue, 0.1 * (1 - dist / 140));
+        ctx.lineWidth = 0.7;
         ctx.stroke();
       }
     }
   }
-  // dots
   nodes.forEach(n => {
     ctx.beginPath();
-    ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
-    ctx.fillStyle = 'rgba(0,212,255,0.5)';
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+    ctx.fillStyle = getColor(n.hue, 0.55);
     ctx.fill();
   });
-  animId = requestAnimationFrame(draw);
+  requestAnimationFrame(draw);
 }
 draw();
 </script>
 </body>
 </html>
-
-
