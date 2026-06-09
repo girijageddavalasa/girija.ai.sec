@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:       #04100a;
+      --bg:        #04100a;
       --bg2:      #071a0f;
       --card:     #0a1f12;
       --border:   #163324;
@@ -425,7 +425,6 @@
 
 <canvas id="bgCanvas"></canvas>
 
-<!-- NAV -->
 <nav>
   <div class="brand">
     <div class="brand-dot"></div>
@@ -441,7 +440,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-badge">
     <div class="brand-dot" style="width:7px;height:7px;"></div>
@@ -462,7 +460,6 @@
   </div>
 </div>
 
-<!-- STAT STRIP -->
 <div class="stats-strip">
   <div class="stat"><div class="stat-num">9.16</div><div class="stat-label">CGPA / 10</div></div>
   <div class="stat"><div class="stat-num">4+</div><div class="stat-label">Internships</div></div>
@@ -471,7 +468,6 @@
   <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Compute Cut (Edge AI)</div></div>
 </div>
 
-<!-- MISSION BANNER -->
 <div class="mission-banner">
   <h3>🌱 ML for a Sustainable Future</h3>
   <p>
@@ -488,7 +484,6 @@
   </div>
 </div>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="section-tag">// whoami</div>
   <h2>About Me</h2>
@@ -547,7 +542,6 @@
   </div>
 </section>
 
-<!-- OPEN SOURCE / SKILLS MARQUEE -->
 <div class="oss-section">
   <div class="oss-inner">
     <div class="section-tag">// tech stack · open source</div>
@@ -571,7 +565,8 @@
         <div class="skill-pill"><div class="skill-dot amber"></div>Scikit-learn</div>
         <div class="skill-pill"><div class="skill-dot"></div>RapidMiner</div>
         <div class="skill-pill"><div class="skill-dot sky"></div>Librosa</div>
-        <!-- duplicate -->
+        <div class="skill-pill"><div class="skill-dot amber"></div>MLflow</div>
+        <div class="skill-pill"><div class="skill-dot amber"></div>DVC</div>
         <div class="skill-pill"><div class="skill-dot"></div>LangChain</div>
         <div class="skill-pill"><div class="skill-dot"></div>LangGraph</div>
         <div class="skill-pill"><div class="skill-dot"></div>LlamaIndex</div>
@@ -590,12 +585,13 @@
         <div class="skill-pill"><div class="skill-dot amber"></div>Scikit-learn</div>
         <div class="skill-pill"><div class="skill-dot"></div>RapidMiner</div>
         <div class="skill-pill"><div class="skill-dot sky"></div>Librosa</div>
+        <div class="skill-pill"><div class="skill-dot amber"></div>MLflow</div>
+        <div class="skill-pill"><div class="skill-dot amber"></div>DVC</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- EXPERIENCE -->
 <section id="experience">
   <div class="section-tag">// work.log</div>
   <h2>Experience</h2>
@@ -663,13 +659,22 @@
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
   <div class="section-tag">// git log --oneline</div>
   <h2>Projects</h2>
   <div class="projects-grid">
 
-    <!-- AQI Prediction — WINNER -->
+    <div class="proj-card green">
+      <div class="proj-sdg">🩺 SDG 3 · Good Health</div>
+      <h3>KidneySense — End-to-End MLOps Pipeline</h3>
+      <div class="proj-stack">Python · MLflow · DVC · Docker · AWS EC2 & ECR · GitHub Actions</div>
+      <p>
+        Engineered a modular, production-grade Deep Learning pipeline for classification of kidney disease. Implemented 
+        experiments logging and tagging frameworks with <strong>MLflow</strong> (hosted on DagsHub), and orchestrated reproducible computation components with <strong>DVC</strong>. Contained via Docker, tracking a fully automated continuous deployment pipeline with <strong>GitHub Actions</strong> directly onto <strong>AWS EC2</strong> self-hosted runner infrastructure.
+      </p>
+      <span class="proj-badge">📦 Production Ready MLOps Architecture</span>
+    </div>
+
     <div class="proj-card amber">
       <div class="proj-sdg">🌫️ SDG 11 · Sustainable Cities</div>
       <h3>AQI Prediction — Siemens × IIT Mandi Competition</h3>
@@ -683,7 +688,6 @@
       <span class="proj-badge amber">🏆 Winner — Siemens × IIT Mandi Data Science</span>
     </div>
 
-    <!-- RIR Estimation -->
     <div class="proj-card green">
       <div class="proj-sdg">⚡ SDG 9 · Industry Innovation</div>
       <h3>RIR Estimation — Edge AI (Samsung Hackathon)</h3>
@@ -696,7 +700,6 @@
       <span class="proj-badge">🥈 Runner-Up — Samsung National Hackathon (500+ teams)</span>
     </div>
 
-    <!-- Semantic Search -->
     <div class="proj-card sky">
       <div class="proj-sdg">🔍 Knowledge Retrieval</div>
       <h3>Semantic Search System — 20 Newsgroups</h3>
@@ -709,7 +712,6 @@
       <span class="proj-badge">Trademarkia Assignment</span>
     </div>
 
-    <!-- RAG Chemical R&D -->
     <div class="proj-card green">
       <div class="proj-sdg">🧪 SDG 12 · Responsible Production</div>
       <h3>RAG Chemical R&D Recall System</h3>
@@ -721,7 +723,6 @@
       </p>
     </div>
 
-    <!-- GenAI Customer Support -->
     <div class="proj-card sky">
       <div class="proj-sdg">🤖 Operational Efficiency</div>
       <h3>GenAI Customer Support Chatbot</h3>
@@ -733,7 +734,6 @@
       </p>
     </div>
 
-    <!-- AWS Audio Translation -->
     <div class="proj-card amber">
       <div class="proj-sdg">🌐 SDG 17 · Global Partnerships</div>
       <h3>Multi-Lingual AI Audio Translation</h3>
@@ -745,7 +745,6 @@
       </p>
     </div>
 
-    <!-- AI Visual TTS -->
     <div class="proj-card green">
       <div class="proj-sdg">♿ SDG 10 · Reduced Inequalities</div>
       <h3>AI Visual Text-to-Speech Assistant</h3>
@@ -760,7 +759,6 @@
   </div>
 </section>
 
-<!-- CERTIFICATIONS / BADGES -->
 <section id="certifications">
   <div class="section-tag">// credentials.json</div>
   <h2>Certifications & Badges</h2>
@@ -795,7 +793,6 @@
   </div>
 </section>
 
-<!-- ACHIEVEMENTS -->
 <section id="achievements">
   <div class="section-tag">// achievements.json</div>
   <h2>Achievements</h2>
@@ -836,9 +833,8 @@
       <div class="ach-sub">Overall champion 2015–2019, 2022</div>
     </div>
   </div>
-</section>
+</section> downgrade
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="section-tag">// connect</div>
   <h2>Contact</h2>
@@ -866,7 +862,7 @@
 </section>
 
 <footer>
-  <p>© 2025 Girija Geddavalasa · AI/ML for Sustainability · Open Source · Built with 🌱 purpose</p>
+  <p>© 2026 Girija Geddavalasa · AI/ML for Sustainability · Open Source · Built with 🌱 purpose</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
@@ -876,6 +872,7 @@ new Typed('.typed-text', {
     'AI/ML Engineer',
     'Sustainability × Machine Learning',
     'AQI Prediction · Air Quality AI',
+    'KidneySense MLOps Architecture',
     'Agentic Workflow Builder',
     'Semantic Search Systems',
     'Edge AI Optimiser',
