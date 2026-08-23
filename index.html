@@ -268,6 +268,8 @@
     }
     .badge-logo.rm { background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); }
     .badge-logo.aws { background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.3); }
+    .badge-logo.oracle { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); }
+    .badge-logo.ibm { background: rgba(96,165,250,0.12); border: 1px solid rgba(96,165,250,0.3); }
     .badge-title {
       font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 700;
       color: var(--white);
@@ -310,6 +312,13 @@
       font-size: 0.7rem; font-family: 'Space Mono', monospace; color: var(--lime);
       vertical-align: middle;
     }
+    .security-tag {
+      display: inline-block; margin-left: 8px;
+      background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3);
+      border-radius: 4px; padding: 1px 8px;
+      font-size: 0.7rem; font-family: 'Space Mono', monospace; color: var(--sky);
+      vertical-align: middle;
+    }
 
     /* ── PROJECTS ── */
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 24px; }
@@ -346,6 +355,11 @@
     .proj-badge.amber {
       background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.3); color: var(--amber);
     }
+    .proj-link {
+      font-family: 'Space Mono', monospace; font-size: 0.76rem;
+      color: var(--sky); text-decoration: none; align-self: flex-start;
+    }
+    .proj-link:hover { color: var(--green); }
 
     /* ── MARQUEE SKILLS ── */
     .oss-section {
@@ -450,11 +464,12 @@
   </h1>
   <div class="hero-sub"><span class="typed-text"></span></div>
   <p class="hero-desc">
-    Building <strong>AI/ML systems</strong> that tackle real-world sustainability challenges —
+    Building <strong>AI/ML systems</strong> that tackle real-world sustainability challenges 
     air quality prediction, resource optimisation, and intelligent automation for a more liveable planet.
     LLMs · Agentic Workflows · Semantic Search · Edge AI · RAG.
   </p>
   <div class="btn-row">
+    <a href="https://drive.google.com/file/d/1d7ubAUlCo_pYztz7l3pPqElIT1Txr9-I/view?usp=drive_link" class="btn btn-primary" target="_blank">Resume</a>
     <a href="https://github.com/girijageddavalasa" class="btn btn-outline" target="_blank">GitHub</a>
     <a href="https://www.linkedin.com/in/girijageddavalasa/" class="btn btn-outline" target="_blank">LinkedIn</a>
   </div>
@@ -462,7 +477,7 @@
 
 <div class="stats-strip">
   <div class="stat"><div class="stat-num">9.28</div><div class="stat-label">CGPA / 10</div></div>
-  <div class="stat"><div class="stat-num">4+</div><div class="stat-label">Internships</div></div>
+  <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Internships</div></div>
   <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Hackathon Teams Beaten</div></div>
   <div class="stat"><div class="stat-num">60%</div><div class="stat-label">Ops Reduction via Agents</div></div>
   <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Compute Cut (Edge AI)</div></div>
@@ -491,7 +506,7 @@
     <div class="about-text">
       <p>
         Pre-final year Computer Science student at <strong>VIT Chennai</strong>, specialising in
-        <strong>AI and Machine Learning</strong> (CGPA 9.28). I am driven by a single question:
+        <strong>AI and Machine Learning</strong> (CGPA 9.28/10). I am driven by a single question:
         <em style="color:var(--lime)">how can intelligent systems help us live and build more sustainably?</em>
       </p>
       <p>
@@ -519,18 +534,19 @@
     </div>
     <div>
       <div class="lifestyle-box">
-        <h3>🥋 Discipline, Balance & Sustainable Living</h3>
+        <h3>🥋 International Gold Medalist · Discipline & Sustainable Living</h3>
         <p>
-          Outside tech, I am an <strong style="color:var(--amber)">international karate champion</strong> and practise
-          calisthenics daily. Martial arts taught me that sustainable performance — in sport or engineering —
-          comes from patience, consistency, and iterative improvement. The same philosophy shapes how I approach
-          machine learning: measure, iterate, improve.
+          Outside tech, I am an <strong style="color:var(--amber)">international gold medalist and champion karate player</strong>
+          and practise calisthenics daily. Martial arts taught me that sustainable performance — in sport or
+          engineering — comes from patience, consistency, and iterative improvement. The same philosophy shapes
+          how I approach machine learning: measure, iterate, improve.
         </p>
         <p style="font-size:0.84rem; color:var(--muted);">
           I believe a sustainable lifestyle and sustainable technology are interconnected. Building efficient AI
           (lower compute, better results) is not just good engineering — it is an environmental responsibility.
         </p>
         <div class="karate-achievements">
+          <div class="karate-item">International Gold Medalist — Karate</div>
           <div class="karate-item">International Karate Champion — Goa International</div>
           <div class="karate-item">International Karate Champion — Coimbatore International</div>
           <div class="karate-item">National Karate Champion — Delhi</div>
@@ -567,6 +583,8 @@
         <div class="skill-pill"><div class="skill-dot sky"></div>Librosa</div>
         <div class="skill-pill"><div class="skill-dot amber"></div>MLflow</div>
         <div class="skill-pill"><div class="skill-dot amber"></div>DVC</div>
+        <div class="skill-pill"><div class="skill-dot"></div>YOLO / Ultralytics</div>
+        <div class="skill-pill"><div class="skill-dot sky"></div>MongoDB</div>
         <div class="skill-pill"><div class="skill-dot"></div>LangChain</div>
         <div class="skill-pill"><div class="skill-dot"></div>LangGraph</div>
         <div class="skill-pill"><div class="skill-dot"></div>LlamaIndex</div>
@@ -587,6 +605,8 @@
         <div class="skill-pill"><div class="skill-dot sky"></div>Librosa</div>
         <div class="skill-pill"><div class="skill-dot amber"></div>MLflow</div>
         <div class="skill-pill"><div class="skill-dot amber"></div>DVC</div>
+        <div class="skill-pill"><div class="skill-dot"></div>YOLO / Ultralytics</div>
+        <div class="skill-pill"><div class="skill-dot sky"></div>MongoDB</div>
       </div>
     </div>
   </div>
@@ -623,8 +643,23 @@
       <div class="timeline-stack">PyTorch · Chromaprint · DTW · Cosine Similarity · Hungarian Algorithm · Librosa</div>
       <ul class="timeline-bullets">
         <li>Designed audio fingerprinting pipeline on <strong>500K+ track datasets</strong>; boosted detection accuracy by <strong>40%</strong> via DTW and cosine similarity segment matching.</li>
+        <li>Research on the audio plagiarism / fingerprinting detection methodology contributed to a <strong>filed patent application</strong> for the underlying approach.</li>
         <li>Built bipartite graph + Hungarian algorithm prototype for optimal temporal segment alignment.</li>
         <li>Orchestrated multimodal feature extraction (melodic, rhythmic, harmonic) using Librosa-based pipelines.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background:var(--lime)"></div>
+      <div class="timeline-header">
+        <div class="timeline-title">Machine Learning Intern</div>
+        <div class="timeline-date">2025</div>
+      </div>
+      <div class="timeline-company">Cholamandalam Investment and Finance Company Limited</div>
+      <div class="timeline-stack">Python · PII Masking · Data Security · Compliance</div>
+      <ul class="timeline-bullets">
+        <li>Contributed to <strong>PAN (Permanent Account Number) and Aadhaar masking modules</strong>, implementing redaction logic for sensitive customer identifiers in line with financial data-security and regulatory compliance requirements. <span class="security-tag">🔒 data security</span></li>
+        <li>Worked on validation and edge-case handling for masking rules to ensure sensitive PII was never exposed downstream in logs, reports, or internal tooling.</li>
       </ul>
     </div>
 
@@ -714,12 +749,12 @@
 
     <div class="proj-card green">
       <div class="proj-sdg">🧪 SDG 12 · Responsible Production</div>
-      <h3>RAG Chemical R&D Recall System</h3>
-      <div class="proj-stack">LlamaIndex · RAG · Python · Statistical Analysis</div>
+      <h3>Chemical Experiment Retrieval System</h3>
+      <div class="proj-stack">Python · LlamaIndex · RAG</div>
       <p>
-        LlamaIndex RAG pipeline over 1,000+ experiment records; reduced <strong>duplicate R&D trials by 35%</strong>
-        — saving materials, time, and energy. Natural language queries surface relevant past experiments with
-        explainable parameter comparison insights.
+        Built a semantic search system over <strong>1,000+ chemical experiment records</strong> using Retrieval-Augmented
+        Generation. Enabled researchers to retrieve related historical experiments through natural-language queries,
+        reducing <strong>duplicate research trials by 35%</strong> — saving materials, time, and energy.
       </p>
     </div>
 
@@ -756,6 +791,41 @@
       </p>
     </div>
 
+    <div class="proj-card sky">
+      <div class="proj-sdg">🖼️ Developer Tooling</div>
+      <h3>Annotix — Computer Vision Annotation Platform</h3>
+      <div class="proj-stack">Python · FastAPI · React · YOLO · Ultralytics</div>
+      <p>
+        Built a local-first annotation platform that simplifies bounding-box annotation with an intuitive UI and
+        auto-save features. Implemented fast YOLO11n model training with background workers and active learning
+        to automatically annotate new images — creating an end-to-end pipeline from manual annotation to
+        model-assisted annotation that cuts labeling time through iterative training and prediction.
+      </p>
+    </div>
+
+    <div class="proj-card green">
+      <div class="proj-sdg">💬 LLM Infrastructure</div>
+      <h3>Promptix — LLM Optimization-as-a-Service</h3>
+      <div class="proj-stack">Python · FastAPI · NLP · LLMs · Graphs</div>
+      <p>
+        Developing an Optimization-as-a-Service middleware between applications and LLMs that optimizes prompts to
+        reduce token usage while preserving critical user intent and constraints. Designed a
+        <strong>Semantic Prompt Constraint Graph (SPCG)</strong> for constraint-aware, risk-based prompt optimization
+        and post-compression verification before inference.
+      </p>
+    </div>
+
+    <div class="proj-card amber">
+      <div class="proj-sdg">✍️ Full-Stack</div>
+      <h3>Blogist — Dynamic Blogging Platform</h3>
+      <div class="proj-stack">FastAPI · MongoDB · Queue Processing · HTML/CSS · Render</div>
+      <p>
+        A full-stack blogging platform with asynchronous queue processing for content pipelines, built on FastAPI
+        and MongoDB and deployed on Render.
+      </p>
+      <a href="https://blogist-ugi6.onrender.com/" class="proj-link" target="_blank">Live Demo ↗</a>
+    </div>
+
   </div>
 </section>
 
@@ -790,6 +860,41 @@
       <div class="badge-link">View on Credly ↗</div>
     </a>
 
+    <div class="badge-card">
+      <div class="badge-logo oracle">🔺</div>
+      <div>
+        <div class="badge-title">Oracle Agentic AI Foundations Associate</div>
+        <div class="badge-issuer">Oracle · 1Z0-1157-26</div>
+      </div>
+      <p style="font-size:0.83rem;color:var(--muted);line-height:1.6;">
+        Certified in the foundational concepts of agentic AI systems, architectures, and workflows on Oracle Cloud
+        Infrastructure.
+      </p>
+    </div>
+
+    <div class="badge-card">
+      <div class="badge-logo ibm">🔷</div>
+      <div>
+        <div class="badge-title">IBM Advanced Generative AI</div>
+        <div class="badge-issuer">IBM</div>
+      </div>
+      <p style="font-size:0.83rem;color:var(--muted);line-height:1.6;">
+        Advanced coursework in generative AI concepts, model architectures, and applied LLM techniques.
+      </p>
+    </div>
+
+    <div class="badge-card">
+      <div class="badge-logo aws">☁️</div>
+      <div>
+        <div class="badge-title">AWS Certified Cloud Practitioner</div>
+        <div class="badge-issuer">Amazon Web Services · CLF-C02</div>
+      </div>
+      <p style="font-size:0.83rem;color:var(--muted);line-height:1.6;">
+        Foundational certification covering AWS Cloud concepts, core services, security, architecture, pricing,
+        and support.
+      </p>
+    </div>
+
   </div>
 </section>
 
@@ -798,9 +903,14 @@
   <h2>Achievements</h2>
   <div class="ach-grid">
     <div class="ach-card">
+      <div class="ach-icon">🎓</div>
+      <div class="ach-title">Amazon Summer ML School 2026</div>
+      <div class="ach-sub">Top 3,000 among 134,421 applicants</div>
+    </div>
+    <div class="ach-card">
       <div class="ach-icon">🏆</div>
-      <div class="ach-title">Third Place — Siemens × IIT Mandi</div>
-      <div class="ach-sub">AQI Prediction · Data Science Competition</div>
+      <div class="ach-title">Winner — Siemens × IIT Mandi</div>
+      <div class="ach-sub">National Data Science Hackathon — AQI Prediction</div>
     </div>
     <div class="ach-card">
       <div class="ach-icon">🥈</div>
@@ -809,13 +919,13 @@
     </div>
     <div class="ach-card">
       <div class="ach-icon">💻</div>
-      <div class="ach-title">Top 100 — Samsung Coding Test</div>
+      <div class="ach-title">Top 100 — Samsung Coding Test 2025</div>
       <div class="ach-sub">Shortlisted from 10,000+ participants</div>
     </div>
     <div class="ach-card">
-      <div class="ach-icon">🥋</div>
-      <div class="ach-title">International Karate Champion</div>
-      <div class="ach-sub">Goa & Coimbatore Internationals · National Champion, Delhi</div>
+      <div class="ach-icon">🥇</div>
+      <div class="ach-title">International Gold Medalist</div>
+      <div class="ach-sub">Karate — International & National Champion</div>
     </div>
     <div class="ach-card">
       <div class="ach-icon">🧮</div>
@@ -824,7 +934,7 @@
     </div>
     <div class="ach-card">
       <div class="ach-icon">🌱</div>
-      <div class="ach-title">Bloom Tank Ideathon 2nd Place</div>
+      <div class="ach-title">Second Place — Bloom Tank Ideathon</div>
       <div class="ach-sub">Innovation & entrepreneurship competition</div>
     </div>
     <div class="ach-card">
@@ -833,7 +943,7 @@
       <div class="ach-sub">Overall champion 2015–2019, 2022</div>
     </div>
   </div>
-</section> downgrade
+</section>
 
 <section id="contact">
   <div class="section-tag">// connect</div>
@@ -877,7 +987,7 @@ new Typed('.typed-text', {
     'Semantic Search Systems',
     'Edge AI Optimiser',
     'Open Source Developer',
-    'International Karate Champion 🥋',
+    'International Gold Medalist Karate Champion 🥇',
     'Samsung PRISM Intern',
     'Siemens × IIT Mandi Winner 🏆',
   ],
